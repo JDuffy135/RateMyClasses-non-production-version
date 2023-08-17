@@ -6,14 +6,16 @@ const requireAuth = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
-                res.redirect('/signin')
-                console.log(err.message)
+                // res.redirect('/signin')
+                return res.status(401).json({error: "user couldn't be authorized"});
+
             } else {
                 next();
             }
         })
     } else {
-        res.redirect('/signin')
+        // res.redirect('/signin')
+        return res.status(401).json({error: "user couldn't be authorized"});
     }
 }
 
@@ -24,23 +26,22 @@ const requireSpecificAuth = async (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
-                console.log("user not authenticated")
-                // res.status(401).json({error: "user not authenticated"})
-                res.redirect('/signin')
+                // res.redirect('/signin')
+                return res.status(401).json({error: "user couldn't be authorized"});
             } else if (decodedToken.id != userid) {
-                console.log("user not authenticated")
-                // res.status(401).json({error: "user not authenticated"})
-                res.redirect('/signin')
+                // res.redirect('/signin')
+                return res.status(401).json({error: "user couldn't be authorized"});
             } else if (user == null) {
                 console.log("user not authenticated")
-                // res.status(401).json({error: "user not authenticated"})
-                res.redirect('/signin')
+                // res.redirect('/signin')
+                return res.status(401).json({error: "user couldn't be authorzed"});
             } else {
                 next();
             }
         })
     } else {
-        res.redirect('/signin')
+        // res.redirect('/signin')
+        return res.status(401).json({error: "user couldn't be authorized"});
     }
 }
 

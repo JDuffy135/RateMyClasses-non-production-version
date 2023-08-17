@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.js')
 const Course = require('../models/course.js');
 const Review = require('../models/review.js');
@@ -11,13 +12,13 @@ const get_home = (req, res) => {
     if (token) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
-                res.status(200).json({isSignedIn: false})
+                res.status(200).json({isSignedIn: false, message: "user authorization checked"})
             } else {
-                res.status(200).json({isSignedIn: true})
+                res.status(200).json({isSignedIn: true, message: "user authorization checked"})
             }
         })
     } else {
-        res.status(200).json({isSignedIn: false})
+        res.status(200).json({isSignedIn: false, message: "user authorization checked"})
     }
 }
 
@@ -30,11 +31,10 @@ const get_courses = async (req, res) => {
 
     Course.find()
     .then((result) => {
-        res.status(200).json(result)
+        res.status(200).json({result, message: "courses retrieved"})
     })
     .catch((err) => {
-        console.log(err);
-        res.status(500).json({error: "couldn't access courses"})
+        res.status(500).json({error: "server error, couldn't access courses"})
     })
 }
 
@@ -45,9 +45,9 @@ const post_courses = async (req, res) => {
     const { courseCode } = req.body;
     const course = await Course.findOne({ courseCode })
     if (course != null) {
-        res.redirect(`/courses/${courseCode}`)
+        // res.redirect(`/courses/${courseCode}`)
+        res.status(302).json({message: "course page found - redirecting", courseCode})
     } else {
-        console.log(err);
         res.status(400).json({error: "course couldn't be found (no reviews have been submitted for the entered course yet)"})
     }
 }
@@ -59,11 +59,10 @@ const get_courseReviews = async (req, res) => {
     const courseCode = req.params.id;
     Review.find({ courseCode })
     .then((result) => {
-        res.status(200).json(result);
+        res.status(200).json({result, message: "course reviews found"});
     })
     .catch((err) => {
-        console.log(err);
-        res.status(400).json({error: "course not found"})
+        res.status(400).json({error: "course page not found"})
     })
 }
 
@@ -91,9 +90,8 @@ const post_reviewForm = async (req, res) => {
                 ratingValues: [0, 0, 0, 0, 0]
         })
         } catch (err) {
-            console.log(err);
-            res.status(500).json({error: "course couldn't be added to database - check to make sure course code is correct (8 digits, no colons)"})
             flag = 1;
+            return res.status(500).json({error: "course couldn't be added to database - check to make sure course code is correct (8 digits, no colons)"})
         }
     }
 
@@ -108,9 +106,9 @@ const post_reviewForm = async (req, res) => {
             })
             const newReview = await Review.findOne({ title, review });
             await User.findByIdAndUpdate(user._id, { postedReviews: [...user.postedReviews, newReview._id] })
-            res.redirect(`/courses/${courseCode}`)
+            // res.redirect(`/courses/${courseCode}`)
+            res.status(302).json({message: "review successfully added to database - redirecting to course page", courseCode})
         } catch (err) {
-            console.log(err);
             res.status(400).json({error: "review couldn't be added to database - course code must be an 8 digit number, review must be between 50 and 400 characters, title cant be over 50 characters, and professor can't be over 30 characters"})
         }
     }

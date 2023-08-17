@@ -8,9 +8,13 @@ const Review = require('../models/review.js');
 
 const get_userid = async (req, res) => {
     const token = req.cookies.token;
+    if (!token) {
+        res.status(401).json({error: "user couldn't be authorzed"})
+    }
     const decoded = JSON.parse(atob(token.split('.')[1]));
     const userid = decoded.id;
-    res.redirect(`/profile/${userid}`);
+    // res.redirect(`/profile/${userid}`);
+    res.status(302).json({message: "userid retrieved - redirecting to profile page", userid})
 }
 
 const get_profile = (req, res) => {
@@ -24,16 +28,19 @@ const post_profile = (req, res) => {
     switch(request) {
         case "logout":
             res.cookie('token', { maxAge: 1 });
-            res.redirect('/signin');
+            // res.redirect('/signin');
+            res.status(302).json({message: "user logged out - redirecting to signin page"})
             break;
         case "reviews":
-            res.redirect(`/profile/${userid}/reviews`);
+            // res.redirect(`/profile/reviews/${userid}`);
+            res.status(302).json({message: "redirecting to user's posted reviews page", userid})
             break;
         case "change_password":
-            res.redirect('/change-password');
+            // res.redirect('/change-password');
+            res.status(302).json({message: "redirecting to change password page"})
             break;
         default:
-            res.status(500).json({error: "invalid argument from client"})
+            res.status(500).json({error: "server error"})
             break;
     }
 }
@@ -49,10 +56,10 @@ const delete_profile = async (req, res) => {
         }
         await user.deleteOne();
         res.cookie('token', { maxAge: 1 });
-        res.redirect('/');
+        // res.redirect('/');
+        res.status(302).json({message: "profile successfully deleted - redirecting to home page"})
     } catch (err) {
-        console.log(err);
-        res.status(500).json({error: "profile delete failed"})
+        res.status(500).json({error: "server error, profile failed to delete"})
     }
 }
 
@@ -65,10 +72,10 @@ const get_profileReviews = async (req, res) => {
         user.postedReviews.forEach((review) => {
             reviewArray.push(review);
         })
-        res.status(200).send(reviewArray);
+        res.status(200).json({reviewArray, message: "user's reviews retrieved"});
     } catch (err) {
         console.log(err);
-        res.status(500).json({error: "profile reviews couldn't be accessed"})
+        res.status(500).json({error: "server error, user's reviews couldn't be accessed"})
     }
 }
 
@@ -83,11 +90,10 @@ const delete_profileReview = async (req, res) => {
         const user = await User.findById(userid);
         let updatedPostedReviews = deleteReview(reviewid, user.postedReviews);
         await User.findByIdAndUpdate(userid, { postedReviews: updatedPostedReviews });
-        res.redirect(`/profile/reviews/${userid}`);
+        res.status(200).json({message: "review deleted"})
     } catch (err) {
         /* CUSTOM ERROR HANDLING GOES HERE - couldn't delete review */
-        console.log(err);
-        res.status(500).json({error: "delete review failed"})
+        res.status(500).json({error: "server error, delete review failed"})
     }
 }
 

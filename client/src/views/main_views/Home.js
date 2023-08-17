@@ -18,7 +18,7 @@ export default function Home() {
                 <div className="home-buttonSection">
                     <button className="home-button" onClick={() => navigate('/courses')}>SEARCH COURSES</button>
                     <p className="home-paragraph">
-                    Search for classes and reviews already submitted to the database, no login necessary.
+                    Search for classes and reviews already submitted to the database. No login necessary.
                     </p>
                 </div>
                 <div className="home-buttonSection">
