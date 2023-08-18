@@ -9,17 +9,13 @@ const Review = require('../models/review.js');
 /* NOTE: might need to make some of these regular functions to use the "this" keyword */
 const get_home = (req, res) => {
     const token = req.cookies.token;
-    if (token) {
-        jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
-            if (err) {
-                res.status(200).json({isSignedIn: false, message: "user authorization checked"})
-            } else {
-                res.status(200).json({isSignedIn: true, message: "user authorization checked"})
-            }
-        })
-    } else {
-        res.status(200).json({isSignedIn: false, message: "user authorization checked"})
-    }
+    jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
+        if (err) {
+            res.status(200).json({isSignedIn: false, message: "user authorization checked"})
+        } else {
+            res.status(200).json({isSignedIn: true, message: "user authorization checked"})
+        }
+    })
 }
 
 const get_about = (req, res) => {

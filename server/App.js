@@ -45,7 +45,13 @@ app.use((req, res, next) => {
 })
 
 /* cors middleware for development - allows client running on localhost:3000 to make requests to server running on localhost:3001 */
-app.use(cors());
+// app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
 
 
 //ROUTES

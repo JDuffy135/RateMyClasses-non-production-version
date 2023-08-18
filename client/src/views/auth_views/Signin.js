@@ -1,12 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavbarNoProfile from '../components/NavbarNoProfile.js';
+import { checkIfSignedIn } from '../../helper_methods/signinCheck.js';
 
 export default function Signin() {
 
     //STATE HANDLING FOR INPUT DATA
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    //USENAVIGATE HOOK
+    let navigate = useNavigate();
+
+
+    /* NOTE TO SELF: not sure if this is working or note, need to test further */
+
+    //REDIRECT IF USER IS ALREADY SIGNED IN
+    const [userSignedIn, setUserSignedIn] = useState(false);
+    useEffect(() => {
+        async function checkSignin() {
+            let isSignedIn = await checkIfSignedIn();
+            if (isSignedIn !== false) {
+                setUserSignedIn(isSignedIn);
+            }
+        }
+        checkSignin();
+        if (userSignedIn !== false) {
+            navigate('/');
+        }
+    }, []);
 
 
     //FUNCTION FOR SUBMITTING INPUT FIELDS
@@ -16,15 +38,15 @@ export default function Signin() {
         fetch('http://localhost:3001/signin', {
             method: "post",
             headers: { "Content-Type": "application/json" },
+            credentials: 'include',
             body: JSON.stringify(data)
-        }).then(() => {
-            console.log("request sent")
+        }).then((response) => response.json())
+        .then(response => {
+            if (response.message) {
+                navigate('/')
+            }
         })
     }
-
-
-    //USENAVIGATE HOOK
-    let navigate = useNavigate();
 
 
     //RETURNED COMPONENT
