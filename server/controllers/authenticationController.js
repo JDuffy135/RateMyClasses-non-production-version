@@ -46,6 +46,11 @@ const get_signup = (req, res) => {
 
 const post_signup = async (req, res) => {
     const { email } = req.body;
+    if (!email.includes('@') || !email.includes('.')) {
+
+        return res.status(400).json({error: "ERROR: email not valid"})
+    }
+
     if (await User.findOne({ email }) == null && await Temp_User.findOne({ email }) == null)
     {
         try {
@@ -55,11 +60,11 @@ const post_signup = async (req, res) => {
             res.status(302).json({message: "signup successful - redirecting to signup confirmation page"})
          } catch (err) {
             console.log(err)
-            res.status(500).json({error: "couldn't generate an id for user confirmation"})
+            res.status(500).json({error: "ERROR: server error"})
         }
     }
     else {
-        res.status(400).json({error: "a user with the entered email address already exists or is waiting to be confirmed."})
+        res.status(400).json({error: "ERROR: email already in database"})
     }
 }
 
@@ -68,9 +73,9 @@ const get_signupConfirmation = (req, res) => {
 }
 
 const post_signupConfirmation = async (req, res) => {
-    const { temp_id } = req.body;
+    const { id } = req.body;
     try {
-        const temp_user = await Temp_User.findById(temp_id);
+        const temp_user = await Temp_User.findById(id);
         const email = temp_user.email;
         const password = passGenerator.generatePassword();
         const user = await User.create({ email, password });
@@ -80,8 +85,7 @@ const post_signupConfirmation = async (req, res) => {
         // res.redirect('/signin');
         res.status(302).json({message: "signup confirmation successful - redirecting to signin page"})
     } catch (err) {
-        console.log(err)
-        res.status(500).json({error: "user's account couldn't be confirmed, try signing up again"})
+        res.status(400).json({error: "ERROR: account couldn't be confirmed"})
     }
 }
 
@@ -97,7 +101,7 @@ const post_changePassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user == null) {
-        res.status(400).json({error: "user doesn't exist"})
+        res.status(400).json({error: "ERROR: user doesn't exist"})
     }
     else {
         if (await Temp_User.findOne({ email, existingUser: "YES" }) == null) {
@@ -111,7 +115,7 @@ const post_changePassword = async (req, res) => {
         }
         else
         {
-            res.status(400).json({error: "password change already requested, check your inbox (and junk mail) - you will be eligible for another password change in about 10 minutes if not found"})
+            res.status(400).json({error: "ERROR: password change already requested"})
         }
     }
 }
@@ -121,8 +125,13 @@ const get_changePasswordConfirmation = (req, res) => {
 }
 
 const post_changePasswordConfirmation = async (req, res) => {
-    const { temp_id } = req.body;
-    const temp_user = await Temp_User.findById(temp_id);
+    const { id } = req.body;
+    let temp_user = null;
+    try {
+        temp_user = await Temp_User.findById(id);
+    } catch (err) {
+        return res.status(400).json({error: "ERROR: id not valid"});
+    }
 
     if (temp_user != null) {
         const email = temp_user.email;
@@ -135,12 +144,11 @@ const post_changePasswordConfirmation = async (req, res) => {
             // res.redirect('/signin')
             res.status(302).json({message: "change password confirmation successful - redirecting to signin page"})
         } catch (err) {
-            console.log(err)
-            res.status(500).json({error: "server error, password couldn't be changed"})
+            res.status(500).json({error: "ERROR: server error"})
         }
     }
     else {
-        res.status(400).json({error: "id invalid, temp_user couldn't be found - try requesting password change again"})
+        res.status(400).json({error: "ERROR: id not valid"})
     }
 }
 

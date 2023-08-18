@@ -1,5 +1,65 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NavbarNoProfile from '../components/NavbarNoProfile.js';
+
 export default function ChangePassword() {
+
+    //STATE HANDLING FOR INPUT DATA
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+
+    
+    //USENAVIGATE HOOK
+    let navigate = useNavigate();
+
+
+    //FUNCTION FOR SUBMITTING INPUT FIELDS
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let data = { email };
+        fetch('http://localhost:3001/change-password', {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        }).then((response) => response.json())
+        .then((response) => {
+            if (response.message) {
+                setError('');
+                navigate('/change-password/confirmation');
+            } else {
+                setError(response.error)
+            }
+        })
+    }
+
+
+    //RETURNED COMPONENT
     return (
-        <div>ChangePassword</div>
+        <>
+            <div className="auth-bg"></div>
+
+            <NavbarNoProfile/>
+
+            <div className="authform-flexbox">
+                <div className="authform">
+                    <form onSubmit={handleSubmit}>
+                        <h3>CHANGE PASSWORD FORM</h3>
+                        <label>Email</label>
+                        <input 
+                            type="text"
+                            value={email}
+                            onChange={(e) => {setEmail(e.target.value)}}
+                            required
+                        />
+                        <div className="authform-errormessage">{error}</div>
+                        <button>Request Password</button>
+                    </form>
+                </div> 
+            </div>
+
+            <div className="footer">
+                <div className="about-text" onClick={() => navigate('/about')}>about page</div>
+            </div>
+        </>
     );
 }

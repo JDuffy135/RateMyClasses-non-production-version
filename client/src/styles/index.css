@@ -262,3 +262,10 @@
 .authform-bottomtext:hover {
     color: gray;
 }
+
+
+.authform-errormessage {
+    color: red;
+    font-style: italic;
+    margin-bottom: 20px;
+}
