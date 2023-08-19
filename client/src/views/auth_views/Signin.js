@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavbarNoProfile from '../components/NavbarNoProfile.js';
+import { checkIfSignedIn } from '../../helper_methods/signinCheck.js';
 
 export default function Signin() {
 
@@ -10,8 +11,17 @@ export default function Signin() {
     const [showError, setShowError] = useState(false);
 
 
-    //USENAVIGATE HOOK
+    //USENAVIGATE HOOK + CHECK IF USER SIGNED IN
     let navigate = useNavigate();
+
+    // const waitForSigninCheck = async () => {
+    //     const isSignedIn = await checkIfSignedIn();
+    //     if (isSignedIn !== false) {
+    //         navigate('/')
+    //     }
+    // }
+    // waitForSigninCheck();
+
 
 
     //FUNCTION FOR SUBMITTING INPUT FIELDS

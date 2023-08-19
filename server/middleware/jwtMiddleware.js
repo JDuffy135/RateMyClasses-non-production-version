@@ -22,19 +22,21 @@ const requireAuth = (req, res, next) => {
 const requireSpecificAuth = async (req, res, next) => {
     const token = req.cookies.token;
     const userid = req.params.userid;
-    const user = await User.findById(userid);
-    if (token) {
+    let user = null;
+    try {
+        user = await User.findById(userid);
+    } catch (err) {
+        return res.status(401).json({error: "user couldn't be authorized"});
+    }
+
+    if (user !== null) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
                 // res.redirect('/signin')
                 return res.status(401).json({error: "user couldn't be authorized"});
-            } else if (decodedToken.id != userid) {
+            } else if (decodedToken.id !== userid) {
                 // res.redirect('/signin')
                 return res.status(401).json({error: "user couldn't be authorized"});
-            } else if (user == null) {
-                console.log("user not authenticated")
-                // res.redirect('/signin')
-                return res.status(401).json({error: "user couldn't be authorzed"});
             } else {
                 next();
             }

@@ -60,7 +60,6 @@ function App() {
 
                     <Route path='/profile' element={<ProfileLoading />} />
                     <Route path="/profile/:userid" element={<Profile />} />
-                    <Route path="/profile/reviews/:userid" element={<ProfileReviews />} />
 
                     <Route path="*" element={<Error404 />} />
                 </Routes>

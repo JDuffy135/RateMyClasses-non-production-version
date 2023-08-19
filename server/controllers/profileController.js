@@ -9,7 +9,7 @@ const Review = require('../models/review.js');
 const get_userid = async (req, res) => {
     const token = req.cookies.token;
     if (!token) {
-        res.status(401).json({error: "user couldn't be authorzed"})
+        return res.status(401).json({error: "user couldn't be authorzed"})
     }
     const decoded = JSON.parse(atob(token.split('.')[1]));
     const userid = decoded.id;
@@ -17,39 +17,58 @@ const get_userid = async (req, res) => {
     res.status(302).json({message: "userid retrieved - redirecting to profile page", userid})
 }
 
-const get_profile = (req, res) => {
-    res.status(200).json({message: "profile GET successful"})
+const get_profile = async (req, res) => {
+    /* sends a list of all the reviews written by the user */
+    const userid = req.params.userid;
+    let user = null;
+    try {
+        user = await User.findById(userid);
+    } catch (err) {
+        return res.status(500).json({error: "ERROR: couldn't load user's posted reviews"})
+    }
+
+    let reviewArray = [];
+    user.postedReviews.forEach((review) => {
+        reviewArray.push(review);
+    })
+    return res.status(200).json({reviewArray, message: "user's posted reviews retrieved"});
 }
 
-const post_profile = (req, res) => {
+const post_profile = async (req, res) => {
     /* switch case that handles logout, password change, and reviews redirect */
     const { request } = req.body;
-    const userid = req.params.userid;
     switch(request) {
         case "logout":
             res.cookie('token', { maxAge: 1 });
             // res.redirect('/signin');
-            res.status(302).json({message: "user logged out - redirecting to signin page"})
-            break;
-        case "reviews":
-            // res.redirect(`/profile/reviews/${userid}`);
-            res.status(302).json({message: "redirecting to user's posted reviews page", userid})
-            break;
-        case "change_password":
+            return res.status(302).json({message: "user logged out - redirecting to signin page"})
+        case "change-password":
             // res.redirect('/change-password');
-            res.status(302).json({message: "redirecting to change password page"})
-            break;
-        default:
-            res.status(500).json({error: "server error"})
-            break;
+            return res.status(302).json({message: "redirecting to change password page"})
+        case "review-delete":
+            const { reviewid, userid } = req.body;
+            const deletion = await delete_profileReview(reviewid, userid);
+            if (deletion === true) {
+                return res.status(200).json({message: "review deleted"})
+            } else {
+                return res.status(500).json({error: "server error, delete review failed"})
+            }
     }
+
+    return res.status(500).json({error: "server error"})
 }
 
 const delete_profile = async (req, res) => {
     /* deletes user's reviews (if prompted) and user document from the database + deletes jwt from browser*/
     const deleteRequest = req.body.deleteRequest;
     const userid = req.params.userid;
-    const user = await  User.findById(userid);
+    let user = null;
+    try {
+        user = await  User.findById(userid);
+    } catch (err) {
+        return res.status(500).json({error: "server error, profile failed to delete"})
+    }
+
     try {
         if (deleteRequest == "YES") {
             await deleteAllReviews(user.postedReviews);
@@ -63,42 +82,34 @@ const delete_profile = async (req, res) => {
     }
 }
 
-const get_profileReviews = async (req, res) => {
-    /* sends a list of all the reviews written by the user */
-    const userid = req.params.userid;
+const get_profileReview = async (req, res) => {
+    const reviewid = req.params.reviewid;
+    let review = null;
     try {
-        const user = await User.findById(userid);
-        let reviewArray = [];
-        user.postedReviews.forEach((review) => {
-            reviewArray.push(review);
-        })
-        res.status(200).json({reviewArray, message: "user's reviews retrieved"});
+        const review = await Review.findById(reviewid);
+        return res.status(200).json({message: "retrieved review info", review})
     } catch (err) {
-        console.log(err);
-        res.status(500).json({error: "server error, user's reviews couldn't be accessed"})
+        return res.status(500).json({error: "ERROR: server error, couldn't retrive review info"})
     }
 }
 
-const delete_profileReview = async (req, res) => {
+
+//--------- HELPER FUNCTIONS --------->
+
+const delete_profileReview = async (reviewid, userid) => {
     /* deletes specified review from the database and from the user's "postedReviews" array
     (also fires the post deleteOne() hook in the Review model, which decrements the "ratingValues" array for the review's course) */
-    const userid = req.params.userid;
-    const { reviewid } = req.body;
     try {
         const review = await Review.findById(reviewid);
         await review.deleteOne();
         const user = await User.findById(userid);
         let updatedPostedReviews = deleteReview(reviewid, user.postedReviews);
         await User.findByIdAndUpdate(userid, { postedReviews: updatedPostedReviews });
-        res.status(200).json({message: "review deleted"})
+        return true;
     } catch (err) {
-        /* CUSTOM ERROR HANDLING GOES HERE - couldn't delete review */
-        res.status(500).json({error: "server error, delete review failed"})
+        return false;
     }
 }
-
-
-//--------- HELPER FUNCTIONS --------->
 
 const deleteReview = function (reviewid, reviewArray) {
     let newArray = [];
@@ -118,4 +129,4 @@ const deleteAllReviews = async function (reviewArray) {
     }
 }
 
-module.exports = { get_userid, get_profile, post_profile, delete_profile, get_profileReviews, delete_profileReview };
+module.exports = { get_userid, get_profile, post_profile, delete_profile, get_profileReview };

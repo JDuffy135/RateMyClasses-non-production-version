@@ -83,3 +83,259 @@
     left: 0px;
     z-index: 3;
 }
+
+
+
+/*--------------- PROFILE PAGE ---------------*/
+
+.profile-bg {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-image: url('../images/profilebackground.jpg');
+    opacity: 0.60;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -10;
+}
+
+
+.profile-sidebar-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 50px;
+    top: 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    height: 100%;
+}
+
+
+.profile-sidebar {
+    position: fixed;
+    background-color: white;
+    border: 3px solid var(--gray2);
+    border-radius: 15px;
+    height: 40%;
+    width: 140px;
+
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.profile-sidebar img {
+    margin-left: 30px;
+    width: 60px;
+    height: 60px;
+}
+
+
+.profile-sidebar-profiletext {
+    font-size: 22px;
+    font-style: bold;
+    color: black;
+    text-align: center;
+    margin-left: 28px;
+}
+
+
+.profile-sidebar-gap {
+    height: 85%;
+    width: 100%;
+}
+
+
+.profile-sidebar-wordcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+    height: 100%;
+    width: 75%;
+}
+
+
+.profile-sidebar-text {
+    font-size: 14px;
+    margin-top: 20px;
+    font-style: italic;
+    color: var(--gray2);
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.profile-sidebar-text:hover {
+    color: gray;
+}
+
+
+.profile-postedReview-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    top: 20%;
+    left: 260px;
+    height: 63%;
+    width: 65%;
+    background-color: white;
+    border: 3px solid var(--gray2);
+}
+
+
+.profile-postedReview-textbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    width: 100%;
+    background-color: lightgray;
+    border: 2px solid var(--gray2);
+}
+
+.profile-postedReview-textbox h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+
+.profile-postedReview-reviewContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: left;
+    height: 100%;
+    width: 100%;
+}
+
+
+.profile-postedReview {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-top: 10px;
+    height: 11%;
+    background-color: rgb(255, 225, 225);
+    border: 2px solid rgb(255, 235, 235);
+    border-radius: 10px;
+    transition: 0.15s;
+}
+
+.profile-postedReview:hover {
+    background-color: rgb(255, 200, 200);
+}
+
+
+.profile-postedReview-bodycontainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+}
+
+
+.profile-deleteicon {
+    position: absolute;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    transition: 0.15;
+    cursor: pointer;
+    z-index: 105;
+}
+
+.profile-deleteicon:hover {
+    opacity: 0.8;
+}
+
+.profile-postedReview-title {
+    cursor: pointer;
+}
+
+
+.profile-alert-background {
+    z-index: 1000;
+    position: fixed;
+    top: 20%;
+    left: 0%;
+    background-color: rgb(255, 245, 245);
+    border: 5px solid red;
+    width: 200px;
+    height: 520px;
+}
+
+.profile-alert-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-alert-warningtext {
+    text-align: center;
+    margin: 5px 0px 5px 0px;
+}
+
+.profile-alert-buttoncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 55px;
+    height: 300px;
+    width: 100%;
+}
+
+
+.profile-alert-cancelbutton {
+    width: 120px;
+    height: 40px;
+    background-color: lightgray;
+    border: 2px solid var(--gray2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.profile-alert-cancelbutton:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+
+.profile-alert-confirmbutton {
+    width: 120px;
+    height: 40px;
+    background-color: rgb(255, 144, 144);
+    border: 2px solid rgb(67, 0, 0);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.profile-alert-confirmbutton:hover {
+    background-color: rgb(255, 180, 180);
+}
+
+
+.profile-alert-confirmanddeletebutton {
+    width: 120px;
+    height: 80px;
+    background-color: rgb(180, 100, 100);
+    border: 2px solid rgb(67, 0, 0);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.profile-alert-confirmanddeletebutton:hover {
+    background-color: rgb(200, 140, 140);
+}

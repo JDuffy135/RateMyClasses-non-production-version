@@ -74,7 +74,17 @@ const post_reviewForm = async (req, res) => {
     const token = req.cookies.token;
     const jwtpayload = JSON.parse(atob(token.split('.')[1]));
     const userid = jwtpayload.id;
-    const user = await User.findById(userid);
+    let user = null;
+    try {
+        user = await User.findById(userid);
+    } catch (err) {
+        return res.status(401).json({error: "ERROR: user couldn't be authorized"})
+    }
+
+    if (user.postedReviews.length >= 8)
+    {
+        return res.status(400).json({error: "ERROR: max reviews reached"})
+    }
 
     //creating review document and adding _id value to user's "postedReviews" array
     const { courseCode, title, professor, review, ratingValues } = req.body;

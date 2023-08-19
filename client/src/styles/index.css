@@ -132,8 +132,8 @@
     bottom: 0px;
     left: 0px;
     width:  100%;
-    min-height: 75px;
-    height: 10%;
+    min-height: 60px;
+    height: 9%;
     background-color: var(--gray1);
     border-top: 10px solid var(--gray2);
     z-index: 100;

@@ -1,8 +1,32 @@
-export default function ProfileLoading() {
+import { useNavigate } from 'react-router-dom';
+import NavbarNoProfile from '../components/NavbarNoProfile.js';
 
-    fetch('http://localhost:3001/profile');
+export default function ProfileLoading() {
+        
+    //USENAVIGATE HOOK
+    let navigate = useNavigate();
+
+    fetch('http://localhost:3001/profile', {
+        method: 'get',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (response.message) {
+            navigate(`/profile/${response.userid}`)
+        } else {
+            navigate('/')
+        }
+    })
+    .catch(error => {
+        navigate('/')
+    })
 
     return (
-        <div>ProfileLoading</div>
+       <>
+            <div className="profile-bg"></div>
+
+            <NavbarNoProfile/>
+        </>
     );
 }
