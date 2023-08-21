@@ -34,7 +34,7 @@ export default function PostedReview({ reviewid }) {
 
     //CLICK FUNCTIONS
     const { userid } = useParams();
-    const handleDeleteReview = () => {
+    const handleDeleteReview = async () => {
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'post',
                 credentials: 'include',

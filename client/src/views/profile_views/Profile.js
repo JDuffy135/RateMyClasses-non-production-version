@@ -57,7 +57,7 @@ export default function Profile() {
         setShowAlert(false);
     }
 
-    const handleDeleteProfileConfirm = () => {
+    const handleDeleteProfileConfirm = async () => {
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'delete',
                 credentials: 'include',
@@ -67,14 +67,14 @@ export default function Profile() {
             .then((result) => navigate('/'))
     }
 
-    const handleDeleteProfileConfirmAndDelete = () => {
+    const handleDeleteProfileConfirmAndDelete = async () => {
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'delete',
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({deleteRequest: "YES"})
             })
-            .then((result) =>navigate('/'))
+            .then((result) => navigate('/'))
     }
     
 

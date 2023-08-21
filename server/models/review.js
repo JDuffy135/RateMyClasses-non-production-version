@@ -65,6 +65,7 @@ reviewSchema.post('save', async function() {
 })
 
 //Update the ratingValues totals (decrement) of the associated course when a review is deleted from the database
+//and deletes the course from the database if there are 0 reviews
 reviewSchema.post('deleteOne', { document: true, query: false }, async function(req, res) {
     const decrementValues = this.toJSON().ratingValues;
     const courseCode = this.toJSON().courseCode;
@@ -77,7 +78,11 @@ reviewSchema.post('deleteOne', { document: true, query: false }, async function(
         newRatingValues[2] -= decrementValues[2];
         newRatingValues[3] -= decrementValues[3];
         newRatingValues[4] -= 1;
-        await Course.updateOne({ courseCode }, { ratingValues: newRatingValues });
+        if (newRatingValues[0] <= 0 && newRatingValues[4] <= 0) {
+            await Course.findOneAndDelete({ courseCode })
+        } else {
+            await Course.updateOne({ courseCode }, { ratingValues: newRatingValues });
+        }
     } catch (err) {
         console.log(err);
     }

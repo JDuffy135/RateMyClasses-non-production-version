@@ -27,7 +27,7 @@ const get_courses = async (req, res) => {
 
     Course.find()
     .then((result) => {
-        res.status(200).json({result, message: "courses retrieved"})
+        res.status(200).json({courses: result, message: "courses retrieved"})
     })
     .catch((err) => {
         res.status(500).json({error: "server error, couldn't access courses"})
@@ -44,7 +44,7 @@ const post_courses = async (req, res) => {
         // res.redirect(`/courses/${courseCode}`)
         res.status(302).json({message: "course page found - redirecting", courseCode})
     } else {
-        res.status(400).json({error: "course couldn't be found (no reviews have been submitted for the entered course yet)"})
+        res.status(500).json({error: "SERVER ERROR: couldn't be redirected"})
     }
 }
 
@@ -87,8 +87,7 @@ const post_reviewForm = async (req, res) => {
         return res.status(400).json({error: "ERROR: max reviews posted"})
     }
 
-    //testing to make sure ccourseCode is valid
-    console.log(req.body)
+    //testing to make sure courseCode is valid
     const { courseCode, title, professor, grade, review, ratingValues } = req.body;
     if (/^[0-9]+$/.test(courseCode) != true || courseCode.length != 8) {
         return res.status(400).json({error: "invalid course code"})
@@ -105,6 +104,17 @@ const post_reviewForm = async (req, res) => {
         } catch (err) {
             flag = 1;
             return res.status(500).json({error: "SERVER ERROR: course couldn't be added to database"})
+        }
+    }
+
+    //making sure user hasn't already posted a review for the course
+    let currentReview = '';
+    for (let i = 0 ; i < user.postedReviews.length ; i++)
+    {
+        currentReview = await Review.findById(user.postedReviews[i])
+        if (courseCode == currentReview.courseCode)
+        {
+            return res.status(422).json({error: "user already posted review for this course"})
         }
     }
 
