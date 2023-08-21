@@ -1,4 +1,4 @@
-/*--------------- HOME PAGE ---------------*/
+/*------------------------------ HOME PAGE ------------------------------*/
 
 .home-bg {
     position: fixed;
@@ -61,6 +61,7 @@
     border-radius: 15px;
     transition: 0.12s;
     z-index: 3;
+    cursor: pointer;
 }
 
 
@@ -86,7 +87,7 @@
 
 
 
-/*--------------- PROFILE PAGE ---------------*/
+/*------------------------------ PROFILE PAGE ------------------------------*/
 
 .profile-bg {
     position: fixed;
@@ -338,4 +339,206 @@
 
 .profile-alert-confirmanddeletebutton:hover {
     background-color: rgb(200, 140, 140);
+}
+
+
+
+/*------------------------------ REVIEW SUBMISSION FORM ------------------------------*/
+
+.reviewform-bg {
+    width: 100%;
+    height: 3200px;
+    background-color: rgb(245, 240, 235);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.reviewform-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 700px;
+    width: 60%;
+    height: 3000px;
+    margin-top: 150px;
+}
+
+.reviewform-form label {
+    margin: 25px 0px 5px 0px;
+    font-size: 26px;
+    color: var(--gray2);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+} 
+
+.reviewform-form input, .reviewform-form select {
+    width: 500px;
+    height: 50px;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+    border: 2px solid var(--gray2);
+}
+
+.reviewform-form h1 {
+    text-align: center;
+    color: var(--red1);
+    font-size: 50px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.reviewform-form p {
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+    color: rgb(180, 180, 180);
+    font-size: 12px;
+    text-shadow: 1px 1px 2px rgba(120, 120, 120, 0.05);
+}
+
+
+.reviewform-itemcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    margin: 30px 0px 30px 0px;
+    background-color:white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.15);
+    transition: 0.2s;
+}
+
+.reviewform-itemcontainer:hover {
+    margin: 27px 0px 33px 0px;
+}
+
+
+.reviewform-itemcontainer-review {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 600px;
+    margin: 30px 0px 90px 0px;
+    background-color:white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.15);
+    transition: 0.2s;
+}
+
+.reviewform-itemcontainer-review:hover {
+    margin: 27px 0px 93px 0px;
+}
+
+.reviewform-itemcontainer-review textarea {
+    width: 600px;
+    height: 300px;
+    padding: 5px;
+    margin: 20px 0px 0px 0px;
+    text-align: left;
+    font-size: 16px;
+    background-color: rgb(240, 240, 240);
+    border: 2px solid var(--gray2);
+    font-size: 18px;
+}
+
+
+.reviewform-ratingblurb {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: rgb(125, 125, 125);
+    text-shadow: 1px 1px 2px rgba(120, 120, 120, 0.05);
+}
+
+
+.reviewform-ratingflexbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.reviewform-ratingflexbox select {
+    width: 120px;
+    height: 50px;
+    margin: 0px 0px 20px 60px;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+    border: 2px solid var(--gray2);
+}
+
+.reviewform-explanationbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 450px;
+    height: 60px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: rgb(255, 200, 200);
+    border: 2px solid var(--gray2);
+    border-radius: 10px;
+}
+
+.reviewform-explanationbox p {
+    margin: 0px;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--gray2);
+    font-style: italic;
+}
+
+
+.reviewform-submitbutton {
+    width: 250px;
+    height: 80px;
+    margin: 20px 0px 60px 0px;
+    font-size: 30px;
+    background-color: rgb(255, 200, 200);
+    border: 2px solid var(--gray2);
+    border-radius: 10px;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+.reviewform-submitbutton:hover {
+    background-color: rgb(255, 160, 160);
+}
+
+.reviewform-submitbutton:active {
+    background-color: rgb(225, 80, 80);
+    margin: 25px 0px 55px 0px;
+}
+
+
+.reviewform-alertdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 250px;
+    background-color: rgba(255, 100, 100, 0.9);
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+.reviewform-alertdiv h2 {
+    font-size: 36px;
+}
+
+.reviewform-alertdiv p {
+    margin: 10px 0px 20px 0px;
+    color: var(--gray2);
+    font-size: 18px;
+    font-style: italic;
 }

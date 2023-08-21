@@ -15,7 +15,7 @@
 }
 
 
-/*--------------- NAVBAR & FOOTER ---------------*/
+/*------------------------------ NAVBAR & FOOTER ------------------------------*/
 
 .navbar {
     position: fixed;
@@ -23,6 +23,16 @@
     width:  100%;
     min-height: 100px;
     height: 14%;
+    background-color: var(--gray1);
+    border-bottom: 10px solid var(--gray2);
+    z-index: 100;
+}
+
+
+.navbar-notfixed {
+    top: 0px;
+    width:  100%;
+    min-height: 120px;
     background-color: var(--gray1);
     border-bottom: 10px solid var(--gray2);
     z-index: 100;
@@ -48,6 +58,26 @@
 
 .logo:hover {
     left: 0px;
+}
+
+
+.logo-notfixed {
+    position: absolute;
+    background-image: url('../images/RateMyClasseslogo.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 15px;
+    left: -10px;
+    height: 100px;
+    width: 500px;
+    z-index: 101;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.logo-notfixed:hover {
+    left: -5px;
 }
 
 
@@ -152,7 +182,7 @@
 
 
 
-/*--------------- AUTHENTICATION FORM ---------------*/
+/*------------------------------ AUTHENTICATION FORM ------------------------------*/
 
 .auth-bg {
     position: fixed;

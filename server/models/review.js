@@ -11,17 +11,25 @@ const reviewSchema = new mongoose.Schema({
     title: {
         type: String,
         maxLength: 50,
-        default: 'my course review'
+        default: 'my course review',
+        required: true
     },
     professor: {
         type: String,
         maxLength: 30,
-        default: '',
+        default: 'unknown',
+        required: true
+    },
+    grade: {
+        type: String,
+        minLength: 1,
+        default: 'not sure',
+        required: true
     },
     review: {
         type: String,
-        minLength: 50,
-        maxLength: 400,
+        minLength: 100,
+        maxLength: 800,
         required: true,
         unique: true
     },
@@ -31,7 +39,8 @@ const reviewSchema = new mongoose.Schema({
     },
     ratingValues: {
         type: Array,
-        default: [0, 0, 0, 0, 0]
+        default: [0, 0, 0, 0, 0],
+        required: true
     }
 })
 

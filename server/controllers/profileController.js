@@ -11,10 +11,13 @@ const get_userid = async (req, res) => {
     if (!token) {
         return res.status(401).json({error: "user couldn't be authorzed"})
     }
-    const decoded = JSON.parse(atob(token.split('.')[1]));
-    const userid = decoded.id;
-    // res.redirect(`/profile/${userid}`);
-    res.status(302).json({message: "userid retrieved - redirecting to profile page", userid})
+    try {
+        const decoded = JSON.parse(atob(token.split('.')[1]));
+        const userid = decoded.id;
+        return res.status(302).json({message: "userid retrieved - redirecting to profile page", userid})
+    } catch (err) {
+        return res.status(401).json({error: "user couldn't be authorzed"})
+    }
 }
 
 const get_profile = async (req, res) => {

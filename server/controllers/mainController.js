@@ -81,13 +81,20 @@ const post_reviewForm = async (req, res) => {
         return res.status(401).json({error: "ERROR: user couldn't be authorized"})
     }
 
+    //making sure user hasn't reached max amount of reviews
     if (user.postedReviews.length >= 8)
     {
-        return res.status(400).json({error: "ERROR: max reviews reached"})
+        return res.status(400).json({error: "ERROR: max reviews posted"})
     }
 
-    //creating review document and adding _id value to user's "postedReviews" array
-    const { courseCode, title, professor, review, ratingValues } = req.body;
+    //testing to make sure ccourseCode is valid
+    console.log(req.body)
+    const { courseCode, title, professor, grade, review, ratingValues } = req.body;
+    if (/^[0-9]+$/.test(courseCode) != true || courseCode.length != 8) {
+        return res.status(400).json({error: "invalid course code"})
+    }
+
+    //creating course if not in database
     let flag = 0;
     if (await Course.findOne({ courseCode }) == null) {
         try {
@@ -97,25 +104,26 @@ const post_reviewForm = async (req, res) => {
         })
         } catch (err) {
             flag = 1;
-            return res.status(500).json({error: "course couldn't be added to database - check to make sure course code is correct (8 digits, no colons)"})
+            return res.status(500).json({error: "SERVER ERROR: course couldn't be added to database"})
         }
     }
 
+    //creating review and updating course ratingValues array (the latter happens with a mongoose hook)
     if (flag != 1) {
         try {
             await Review.create({
                 courseCode,
                 title,
                 professor,
+                grade,
                 review,
                 ratingValues
             })
             const newReview = await Review.findOne({ title, review });
             await User.findByIdAndUpdate(user._id, { postedReviews: [...user.postedReviews, newReview._id] })
-            // res.redirect(`/courses/${courseCode}`)
             res.status(302).json({message: "review successfully added to database - redirecting to course page", courseCode})
         } catch (err) {
-            res.status(400).json({error: "review couldn't be added to database - course code must be an 8 digit number, review must be between 50 and 400 characters, title cant be over 50 characters, and professor can't be over 30 characters"})
+            res.status(400).json({error: "review couldn't be added to database - check to make sure all fields are entered correctly and course review has at least 100 characters"})
         }
     }
 }
