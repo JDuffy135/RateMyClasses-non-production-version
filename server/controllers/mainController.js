@@ -53,13 +53,21 @@ const get_courseReviews = async (req, res) => {
     all reviews containing the given course code */
 
     const courseCode = req.params.id;
-    Review.find({ courseCode })
-    .then((result) => {
-        res.status(200).json({result, message: "course reviews found"});
-    })
-    .catch((err) => {
-        res.status(400).json({error: "course page not found"})
-    })
+    try {
+        const reviews = await Review.find({ courseCode })
+        const course = await Course.findOne({ courseCode })
+        res.status(200).json({reviews, course, message: "course reviews found"});
+    } catch (err) {
+        return res.status(400).json({error: "course page not found"})
+    }
+
+    // Review.find({ courseCode })
+    // .then((result) => {
+    //     res.status(200).json({result, message: "course reviews found"});
+    // })
+    // .catch((err) => {
+    //     res.status(400).json({error: "course page not found"})
+    // })
 }
 
 
