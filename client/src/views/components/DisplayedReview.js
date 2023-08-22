@@ -16,8 +16,8 @@ let interestColor = '';
 let usefulnessColor = '';
 
 
-//USEEFFFECT FOR RATING BOX COLOR SETTING
-useEffect(() => {
+//SETTING RATING BOX COLOR
+const setRatingBoxVColors = () => {
     //DIFFICULTY SWITCH
     switch (ratingValues[0]) {
         case 5:
@@ -95,6 +95,9 @@ useEffect(() => {
     setHomeworkBox(`reviews-ratingBox-${homeworkColor}`)
     setInterestBox(`reviews-ratingBox-${interestColor}`);
     setUsefulnessBox(`reviews-ratingBox-${usefulnessColor}`);
+}
+useEffect(() => {
+    setRatingBoxVColors();
 }, [])
 
 

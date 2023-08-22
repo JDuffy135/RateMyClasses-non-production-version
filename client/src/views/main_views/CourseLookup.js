@@ -9,6 +9,7 @@ export default function CourseLookup() {
     const [enteredCode, setEnteredCode] = useState('');
     const [courses, setCourses] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
+    const [showError, setShowError] = useState(false);
 
 
     //USEEFFECT THAT GRABS THE COURSES FROM THE DATABASE
@@ -22,11 +23,12 @@ export default function CourseLookup() {
                 if (data.message) {
                     setCourses(data.courses)
                     setSearchResults(data.courses)
+                } else {
+                    setShowError(true)
                 }
             })
             .catch(error => {
-                setCourses([])
-                setSearchResults([])
+                setShowError(true)
             })
         }
         fetchCourses();
@@ -46,6 +48,11 @@ export default function CourseLookup() {
         }
 
         setSearchResults(displayedCourses)
+        if (displayedCourses.length < 1) {
+            setShowError(true)
+        } else {
+            setShowError(false)
+        }
     }
 
 
@@ -80,14 +87,14 @@ export default function CourseLookup() {
 
             <div className="lookup-displayedCoursesContainer">
                 <h1>COURSES</h1>
-                {(searchResults.length > 0) ? 
-                    searchResults.map((course, index) => {
-                        return <DisplayedCourse key={index} courseCode={course.courseCode} reviewAmount={course.ratingValues[4]}/> 
-                }) :
+                {(showError === true) ? 
                     <div className="lookup-displayedCourseError">
                         <h2>NO RESULTS FOUND</h2>
                         <p>No courses in the database match your search. Either try another course, or login to write a review for the entered course.</p>
-                    </div>
+                    </div> :
+                    searchResults.map((course, index) => {
+                        return <DisplayedCourse key={index} courseCode={course.courseCode} reviewAmount={course.ratingValues[4]}/> 
+                    })
                 }
             </div>
         </>

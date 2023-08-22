@@ -19,7 +19,6 @@ export default function Profile() {
 
     //RETRIEVE ARRAY OF POSTED REVIEWS & REDIRECT IF NOT AUTHORIZED
     const { userid } = useParams();
-    let maxReviews = [0, 1, 2, 3, 4, 5, 6, 7];
     useEffect(() => {
         const fetchReviewsArray = async () => {
             const result = await fetch(`http://localhost:3001/profile/${userid}`, {
@@ -113,9 +112,6 @@ export default function Profile() {
                         {postedReviews.map((review, index) => {
                             return (<PostedReview key={index} reviewid={review}/>);
                         })}
-                        {/* {(postedReviews.length < 8) ? maxReviews.slice(postedReviews.length, maxReviews.length).map(((item) => {
-                            return (<PostedReview key={item} reviewid="null"/>);
-                        })) : null} */}
                 </div>
             </div>
 

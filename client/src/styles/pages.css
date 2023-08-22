@@ -747,6 +747,15 @@
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
+.reviews-sidebar-container h2 {
+    margin-top: 5px;
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+    color: var(--gray1);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
 
 .reviews-statsContainer{
     display: flex;
@@ -755,7 +764,32 @@
     width: 500px;
     height: 450px;
     margin: 20px;
-    background-color: black;
+    background-color: rgb(235, 235, 235);
+    border-radius: 10px;
+    border: 5px solid rgb(245, 245, 245)
+}
+
+
+.reviews-progressbarContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 25%;
+}
+
+.reviews-progressbarContainer h1 {
+    font-size: 20px;
+    text-align: left;
+}
+
+.reviews-progressbarContainer p {
+    font-size: 15px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
+    color: var(--gray1);
+    font-weight: bold;
+    text-align: center;
 }
 
 
@@ -785,7 +819,7 @@
     align-items: center;
     min-width: 600px;
     width: 70%;
-    height: 580px;
+    height: 540px;
     margin: 20px 0px 20px 0px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
@@ -877,7 +911,7 @@
     align-items: center;
     width: 100%;
     height: 10px;
-    margin: 25px 0px 10px 0px;
+    margin: 25px 0px 15px 0px;
 }
 
 
@@ -887,19 +921,19 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 220px;
+    height: 180px;
 }
 
 
 .reviews-review {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: top;
     font-size: 14px;
-    font-weight: bold;
+    /* font-weight: bold; */
     width: 95%;
     height: 100%;
-    padding: 5px;
+    padding: 10px;
     margin: 10px 20px 0px 20px;
     background-color: rgb(245, 245, 245);
     border: 2px solid rgb(225, 225, 225);
@@ -1006,4 +1040,20 @@
 
 .reviews-date {
     opacity: 0.5;
+}
+
+
+.reviews-back {
+    position: fixed;
+    bottom: 10px;
+    left: 15px;
+    font-size: 18px;
+    font-style: italic;
+    color: rgb(170, 170, 170);
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.reviews-back:hover {
+    color: rgb(200, 200, 200);
 }
