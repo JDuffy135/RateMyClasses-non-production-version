@@ -299,3 +299,22 @@
     font-style: italic;
     margin-bottom: 20px;
 }
+
+
+
+/*------------------------------ 404 PAGE ------------------------------*/
+
+.error404-bg {
+    position: fixed;
+    background-color: rgb(255, 240, 240);
+    height: 100%;
+    width: 100%;
+    z-index: -10;
+}
+
+.error404-text {
+    position: fixed;
+    top: 170px;
+    left: 40px;
+    font-size: 50px;
+}
