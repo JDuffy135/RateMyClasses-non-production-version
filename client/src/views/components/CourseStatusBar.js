@@ -3,8 +3,8 @@ export default function CourseStatusBar ({ stat, progressValue }) {
     //PROGRESS BAR STYLING
     const progressbar = {
         display: 'flex',
-        'align-items': 'center',
-        'justify-content': 'left',
+        alignItems: 'center',
+        justifyContent: 'left',
         height: '35%',
         width: '90%',
         backgroundColor: 'white',
@@ -15,12 +15,12 @@ export default function CourseStatusBar ({ stat, progressValue }) {
 
     const progress = {
         display: 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'justify-content': 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         height: '100%',
         width: `${progressValue}%`,
-        'background-color': 'var(--red1)',
+        backgroundColor: 'var(--red1)',
         borderRadius: '10px'
     }
 

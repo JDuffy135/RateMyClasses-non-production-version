@@ -304,6 +304,25 @@
 
 /*------------------------------ 404 PAGE ------------------------------*/
 
+.loadingscreen {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+    font-size: 80px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: bold;
+}
+
+
+
+/*------------------------------ 404 PAGE ------------------------------*/
+
 .error404-bg {
     position: fixed;
     background-color: rgb(255, 240, 240);

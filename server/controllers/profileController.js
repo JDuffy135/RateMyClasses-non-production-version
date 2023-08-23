@@ -42,11 +42,10 @@ const post_profile = async (req, res) => {
     const { request } = req.body;
     switch(request) {
         case "logout":
-            res.cookie('token', { maxAge: 1 });
-            // res.redirect('/signin');
+            // res.cookie('token', { maxAge: 1 });
+            res.clearCookie('token');
             return res.status(302).json({message: "user logged out - redirecting to signin page"})
         case "change-password":
-            // res.redirect('/change-password');
             return res.status(302).json({message: "redirecting to change password page"})
         case "review-delete":
             const { reviewid, userid } = req.body;
@@ -77,11 +76,11 @@ const delete_profile = async (req, res) => {
             await deleteAllReviews(user.postedReviews);
         }
         await user.deleteOne();
-        res.cookie('token', { maxAge: 1 });
-        // res.redirect('/');
-        res.status(302).json({message: "profile successfully deleted - redirecting to home page"})
+        // res.cookie('token', { maxAge: 1 });
+        res.clearCookie('token');
+        return res.status(302).json({message: "profile successfully deleted - redirecting to home page"})
     } catch (err) {
-        res.status(500).json({error: "server error, profile failed to delete"})
+        return res.status(500).json({error: "server error, profile failed to delete"})
     }
 }
 

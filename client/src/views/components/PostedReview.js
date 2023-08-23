@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import DeleteReviewButton from './DeleteReviewButton.js';
 
-export default function PostedReview({ reviewid }) {
+export default function PostedReview({ reviewid, setLoading }) {
 
     //STATE FOR HANDLING REVIEW OBJECT
     const [reviewObject, setReviewObject] = useState(null);
@@ -35,13 +35,17 @@ export default function PostedReview({ reviewid }) {
     //CLICK FUNCTIONS
     const { userid } = useParams();
     const handleDeleteReview = async () => {
+        setLoading(true)
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'post',
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({request: "review-delete", reviewid, userid})
             })
-            .then((result) => navigate(0))
+        .then((response) => {
+            setLoading(false)
+            navigate(0)
+        })
     }
 
     const handleClickReview = () => {

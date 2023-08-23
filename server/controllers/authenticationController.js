@@ -40,9 +40,9 @@ const post_signin = async (req, res) => {
 
 //--------- SIGN UP FUNCTIONS ---------//
 
-const get_signup = (req, res) => {
-    res.status(200).json({message: "signup GET successful"})
-}
+// const get_signup = (req, res) => {
+//     res.status(200).json({message: "signup GET successful"})
+// }
 
 const post_signup = async (req, res) => {
     const { email } = req.body;
@@ -68,9 +68,9 @@ const post_signup = async (req, res) => {
     }
 }
 
-const get_signupConfirmation = (req, res) => {
-    res.status(200).send({message: "confirmation email sent!"})
-}
+// const get_signupConfirmation = (req, res) => {
+//     res.status(200).send({message: "confirmation email sent!"})
+// }
 
 const post_signupConfirmation = async (req, res) => {
     const { id } = req.body;
@@ -92,9 +92,9 @@ const post_signupConfirmation = async (req, res) => {
 
 //--------- CHANGE PASSWORD FUNCTIONS ---------//
 
-const get_changePassword = (req, res) => {
-    res.status(200).json({message: "change password GET succesful"})
-}
+// const get_changePassword = (req, res) => {
+//     res.status(200).json({message: "change password GET succesful"})
+// }
 
 const post_changePassword = async (req, res) => {
     const { email } = req.body;
@@ -120,9 +120,9 @@ const post_changePassword = async (req, res) => {
     }
 }
 
-const get_changePasswordConfirmation = (req, res) => {
-    res.status(200).json({message: "password change confirmation email sent!"})
-}
+// const get_changePasswordConfirmation = (req, res) => {
+//     res.status(200).json({message: "password change confirmation email sent!"})
+// }
 
 const post_changePasswordConfirmation = async (req, res) => {
     const { id } = req.body;
@@ -152,5 +152,8 @@ const post_changePasswordConfirmation = async (req, res) => {
     }
 }
 
-module.exports = { get_signin, post_signin, get_signup, post_signup, get_signupConfirmation, post_signupConfirmation,
-    get_changePassword, post_changePassword, get_changePasswordConfirmation, post_changePasswordConfirmation };
+module.exports = { get_signin, post_signin, post_signup, post_signupConfirmation,
+    post_changePassword, post_changePasswordConfirmation };
+
+// module.exports = { get_signin, post_signin, get_signup, post_signup, get_signupConfirmation, post_signupConfirmation,
+//     get_changePassword, post_changePassword, get_changePasswordConfirmation, post_changePasswordConfirmation };

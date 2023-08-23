@@ -18,9 +18,9 @@ const get_home = (req, res) => {
     })
 }
 
-const get_about = (req, res) => {
-    res.status(200).json({message: "about page GET successful"})
-}
+// const get_about = (req, res) => {
+//     res.status(200).json({message: "about page GET successful"})
+// }
 
 const get_courses = async (req, res) => {
 /* sends an array of all courses in the database to the frontend */
@@ -60,22 +60,14 @@ const get_courseReviews = async (req, res) => {
     } catch (err) {
         return res.status(400).json({error: "course page not found"})
     }
-
-    // Review.find({ courseCode })
-    // .then((result) => {
-    //     res.status(200).json({result, message: "course reviews found"});
-    // })
-    // .catch((err) => {
-    //     res.status(400).json({error: "course page not found"})
-    // })
 }
 
 
 //--------- PROTECTED ROUTES ---------//
 
-const get_reviewForm = async (req, res) => {
-    res.status(200).json({message: "review form page GET successful"})
-}
+// const get_reviewForm = async (req, res) => {
+//     res.status(200).json({message: "review form page GET successful"})
+// }
 
 const post_reviewForm = async (req, res) => {
     //extracting payload from JWT to access user's _id value + redirect if user not logged in
@@ -101,6 +93,22 @@ const post_reviewForm = async (req, res) => {
         return res.status(400).json({error: "invalid course code"})
     }
 
+    //making sure user hasn't already posted a review for the course
+    let currentReview = {courseCode: []};
+    for (let i = 0 ; i < user.postedReviews.length ; i++)
+    {
+        try {
+            currentReview = await Review.findById(user.postedReviews[i])
+        } catch (err) {
+            return res.status(500).json({error: "SERVER ERROR: try again"})
+        }
+
+        if (courseCode == currentReview.courseCode)
+        {
+            return res.status(422).json({error: "user already posted review for this course"})
+        }
+    }
+
     //creating course if not in database
     let flag = 0;
     if (await Course.findOne({ courseCode }) == null) {
@@ -111,18 +119,7 @@ const post_reviewForm = async (req, res) => {
         })
         } catch (err) {
             flag = 1;
-            return res.status(500).json({error: "SERVER ERROR: course couldn't be added to database"})
-        }
-    }
-
-    //making sure user hasn't already posted a review for the course
-    let currentReview = '';
-    for (let i = 0 ; i < user.postedReviews.length ; i++)
-    {
-        currentReview = await Review.findById(user.postedReviews[i])
-        if (courseCode == currentReview.courseCode)
-        {
-            return res.status(422).json({error: "user already posted review for this course"})
+            return res.status(500).json({error: "SERVER ERROR: try again"})
         }
     }
 
@@ -137,7 +134,7 @@ const post_reviewForm = async (req, res) => {
                 review,
                 ratingValues
             })
-            const newReview = await Review.findOne({ title, review });
+            const newReview = await Review.findOne({ courseCode, title, review });
             await User.findByIdAndUpdate(user._id, { postedReviews: [...user.postedReviews, newReview._id] })
             res.status(302).json({message: "review successfully added to database - redirecting to course page", courseCode})
         } catch (err) {
@@ -146,4 +143,6 @@ const post_reviewForm = async (req, res) => {
     }
 }
 
-module.exports = { get_home, get_about, get_courses, post_courses, get_courseReviews, get_reviewForm, post_reviewForm };
+module.exports = { get_home, get_courses, post_courses, get_courseReviews, post_reviewForm };
+
+// module.exports = { get_home, get_about, get_courses, post_courses, get_courseReviews, get_reviewForm, post_reviewForm };

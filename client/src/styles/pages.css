@@ -1234,5 +1234,6 @@
 }
 
 .about-link:hover {
+    font-size: 20px;
     color: rgb(150, 150, 150);
 }

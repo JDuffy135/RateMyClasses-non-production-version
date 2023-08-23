@@ -11,6 +11,7 @@ export default function Profile() {
     //STATES
     const [postedReviews, setPostedReviews] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     //USENAVIGATE HOOK
@@ -57,6 +58,7 @@ export default function Profile() {
     }
 
     const handleDeleteProfileConfirm = async () => {
+        setLoading(true)
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'delete',
                 credentials: 'include',
@@ -67,6 +69,7 @@ export default function Profile() {
     }
 
     const handleDeleteProfileConfirmAndDelete = async () => {
+        setLoading(true)
         fetch(`http://localhost:3001/profile/${userid}`, {
                 method: 'delete',
                 credentials: 'include',
@@ -80,6 +83,8 @@ export default function Profile() {
     //RETURNED COMPONENT
     return (
         <>
+            {(loading === true) ? <div className="loadingscreen">Loading...</div> : null}
+
             <div className="profile-bg"></div>
 
             <NavbarNoProfile/>
@@ -109,9 +114,9 @@ export default function Profile() {
                     <h1>{postedReviews.length}/8 reviews posted</h1>
                 </div>
                 <div className="profile-postedReview-reviewContainer">
-                        {postedReviews.map((review, index) => {
-                            return (<PostedReview key={index} reviewid={review}/>);
-                        })}
+                        {(postedReviews.length >= 1) ? postedReviews.map((review, index) => {
+                            return (<PostedReview key={index} reviewid={review} setLoading={setLoading}/>);
+                        }) : null}
                 </div>
             </div>
 
