@@ -109,19 +109,20 @@ const post_reviewForm = async (req, res) => {
         }
     }
 
-    //creating course if not in database
     let flag = 0;
-    if (await Course.findOne({ courseCode }) == null) {
-        try {
-            await Course.create({
-                courseCode,
-                ratingValues: [0, 0, 0, 0, 0]
-        })
-        } catch (err) {
-            flag = 1;
-            return res.status(500).json({error: "SERVER ERROR: try again"})
-        }
-    }
+    //NOTE: moved this into the mongoose review "post save" hook
+    // //creating course if not in database
+    // if (await Course.findOne({ courseCode }) == null) {
+    //     try {
+    //         await Course.create({
+    //             courseCode,
+    //             ratingValues: [0, 0, 0, 0, 0]
+    //     })
+    //     } catch (err) {
+    //         flag = 1;
+    //         return res.status(500).json({error: "SERVER ERROR: try again"})
+    //     }
+    // }
 
     //creating review and updating course ratingValues array (the latter happens with a mongoose hook)
     if (flag != 1) {
