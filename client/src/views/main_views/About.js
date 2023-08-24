@@ -33,9 +33,9 @@ export default function About() {
                     </div>
                     <div className="about-techstackTextContainer">
                         <p>
-                            To build this website, I used the MERN stack - MongoDB for the database, React for the frontend, and Node.js with Express for the backend. I deployed the app using {`<DEPLOYMENT SERVICE HERE>`}, and I’m currently using the MongoDB Atlas free tier to store all the reviews and user info (which is why I decided to limit each user to 8 reviews).
+                            To build this website, I used the MERN stack - MongoDB for the database, React for the frontend, and Node.js with Express for the backend. I deployed the app using AWS, and I’m currently using the MongoDB Atlas free tier to store all the reviews and user info (which is why I decided to limit each user to 8 reviews).
 
-                            <br /> <br />Oh, and for anyone interested in learning web development, I would recommend using w3schools to learn the basics of HTML, CSS, and JavaScript, then figure out which tech stack you’re going to learn. If you go with the MERN stack, TheNetNinja has plenty of great video series on his channel to get you started (the Node.js crash course, MERN stack tutorial, and JWT authentication series were particularly helpful for me). 
+                            <br /> <br />Oh, and for anyone curious about learning web development, the 2 most useful resources for me were w3schools (for learning HTML, CSS, JavaScript, and the basics of React), and the YouTube channel called “TheNetNinja” (I found his Node.js crash course, JWT tutorial, and MERN stack video series to be particularly helpful).
                         </p>
                     </div>
                 </div>
@@ -67,6 +67,7 @@ export default function About() {
                             </a>
                             <a 
                                 href="https://www.linkedin.com/in/jake-duffy-0682aa258"
+                                rel="noreferrer"
                                 target="_blank"
                                 className="about-link"
                             >

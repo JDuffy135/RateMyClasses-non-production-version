@@ -13,6 +13,7 @@ export default function CourseReviews() {
     //STATES
     const [reviews, setReviews] = useState([]);
     const [courseRatingsArray, setCourseRatingsArray] = useState([0, 0, 0, 0]);
+    const [courseCode, setCourseCode] = useState('')
 
 
     //USEEFFECT HOOK TO RETRIEVE COURSE INFO AND FILL STATE ARRAYS
@@ -38,6 +39,7 @@ export default function CourseReviews() {
             .then(data => {
                 if (data.message) {
                     // setCourseRatingsArray(data.course.ratingValues)
+                    setCourseCode(data.course.courseCode)
                     updateCourseRatingsArray(data.course.ratingValues[0], data.course.ratingValues[1], 
                         data.course.ratingValues[2], data.course.ratingValues[3], data.course.ratingValues[4])
                     setReviews(data.reviews)
@@ -72,6 +74,12 @@ export default function CourseReviews() {
                         <CourseStatusBar stat="interest" progressValue={courseRatingsArray[2]} />
                         <CourseStatusBar stat="usefulness" progressValue={courseRatingsArray[3]} />
                     </div>
+                    <button 
+                        className="reviews-writeReviewButton"
+                        onClick={() => navigate(`/review/${courseCode}`)}
+                    >
+                        Write a review
+                    </button>
                 </div>
             </div>
 

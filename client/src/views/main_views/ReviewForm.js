@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ReviewFormAlert from '../components/ReviewFormAlert.js';
 
-export default function ReviewForm({ inputCourseCode }) {
+export default function ReviewForm() {
 
     //FORM STATES
-    if (inputCourseCode == undefined || typeof(inputCourseCode) != 'string') {
-        inputCourseCode = '';
+    // if (inputCourseCode == undefined || typeof(inputCourseCode) != 'string') {
+    //     inputCourseCode = '';
+    // }
+    let inputCourseCode = '';
+    const { courseId } = useParams();
+    if (courseId != undefined && courseId.length <= 8) {
+        inputCourseCode = courseId;
     }
+
     const [courseCode, setCourseCode] = useState(inputCourseCode);
     const [title, setTitle] = useState('');
     const [professor, setProfessor] = useState('');
