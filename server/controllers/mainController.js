@@ -109,23 +109,45 @@ const post_reviewForm = async (req, res) => {
         }
     }
 
-    let flag = 0;
-    //NOTE: moved this into the mongoose review "post save" hook
-    // //creating course if not in database
-    // if (await Course.findOne({ courseCode }) == null) {
-    //     try {
-    //         await Course.create({
-    //             courseCode,
-    //             ratingValues: [0, 0, 0, 0, 0]
-    //     })
-    //     } catch (err) {
-    //         flag = 1;
-    //         return res.status(500).json({error: "SERVER ERROR: try again"})
-    //     }
-    // }
 
-    //creating review and updating course ratingValues array (the latter happens with a mongoose hook)
-    if (flag != 1) {
+    //creates course in database if not already present
+    if (await Course.findOne({ courseCode }) == null) {
+        try {
+            await Course.create({
+                courseCode,
+                ratingValues: [0, 0, 0, 0, 0],
+                beingUpdated: "NO"
+            })
+        } catch (err) {
+            return res.status(500).json({error: "SERVER ERROR: try again"})
+        }
+    }
+
+
+    //checking to see if course is already being updated in database (to avoid issues with people posting reviews simultaneously)
+    let course = null;
+    try {
+        course = await Course.findOne({ courseCode });
+        if (course.beingUpdated !== "NO" && course.beingUpdated !== userid)
+        {
+            return res.status(500).json({error: "SERVER ERROR: course already being updated - wait a moment and try again"})
+        } else {
+            await Course.updateOne({ courseCode }, { beingUpdated: userid })
+        }
+    } catch (err) {
+        return res.status(500).json({error: "SERVER ERROR: try again"})
+    }
+
+
+    //creating review, updating course ratingValues and user's postedReviews array, and 
+    //setting course "beingUpdated" value back to false
+    try {
+        course = await Course.findOne({ courseCode });
+    } catch (err) {
+        return res.status(500).json({error: "SERVER ERROR: try again"})
+    }
+
+    if (course.beingUpdated == userid) {
         try {
             await Review.create({
                 courseCode,
@@ -137,10 +159,13 @@ const post_reviewForm = async (req, res) => {
             })
             const newReview = await Review.findOne({ courseCode, title, review });
             await User.findByIdAndUpdate(user._id, { postedReviews: [...user.postedReviews, newReview._id] })
+            await Course.updateOne({ courseCode }, { beingUpdated: "NO" })
             res.status(302).json({message: "review successfully added to database - redirecting to course page", courseCode})
         } catch (err) {
             res.status(400).json({error: "review couldn't be added to database - check to make sure all fields are entered correctly and course review has at least 100 characters"})
         }
+    } else {
+        return res.status(500).json({error: "SERVER ERROR: wait a moment and try again"})
     }
 }
 

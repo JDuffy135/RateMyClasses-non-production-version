@@ -16,7 +16,6 @@ const createToken = (id) => {
 const get_signin = async (req, res) => {
     const token = req.cookies.token;
     if (token) {
-        // res.redirect('/')
         res.status(302).json({message: "user already signed in - redirecting"})
     } else {
         res.status(200).json({message: "signin GET successful"})
@@ -30,7 +29,6 @@ const post_signin = async (req, res) => {
     {
         const token = createToken(user._id);
         res.cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 3 });
-        // res.redirect('/');
         res.status(302).json({message: "login successful - redirecting"})
     } else {
         res.status(400).json({error: "login failed"})
@@ -56,7 +54,6 @@ const post_signup = async (req, res) => {
         try {
             const temp_user = await Temp_User.create({ email });
             Mailer.sendSignUpConfirmationEmail(email, temp_user._id)
-            // res.redirect('/signup/confirmation')
             res.status(302).json({message: "signup successful - redirecting to signup confirmation page"})
          } catch (err) {
             console.log(err)
@@ -82,7 +79,6 @@ const post_signupConfirmation = async (req, res) => {
         /* NOTE: password is hashed in a mongoose pre hook (using bcrypt) before saved to database */
         await Temp_User.deleteMany({ email });
         Mailer.sendNewAccountPasswordEmail(email, password);
-        // res.redirect('/signin');
         res.status(302).json({message: "signup confirmation successful - redirecting to signin page"})
     } catch (err) {
         res.status(400).json({error: "ERROR: account couldn't be confirmed"})
@@ -110,7 +106,6 @@ const post_changePassword = async (req, res) => {
                 existingUser: "YES"
             });
             Mailer.sendChangePasswordConfirmationEmail(email, temp_user._id)
-            // res.redirect('/change-password/confirmation')
             res.status(302).json({message: "change password successful - redirecting to change password confirmation page"})
         }
         else
@@ -140,8 +135,8 @@ const post_changePasswordConfirmation = async (req, res) => {
             await User.updateOne({ email }, { password: newPassword });
             Mailer.sendPasswordChangedEmail(email, newPassword);
             await Temp_User.deleteMany({ email });
-            res.cookie('token', { maxAge: 1 });
-            // res.redirect('/signin')
+            // res.cookie('token', { maxAge: 1 });
+            res.clearCookie('token');
             res.status(302).json({message: "change password confirmation successful - redirecting to signin page"})
         } catch (err) {
             res.status(500).json({error: "ERROR: server error"})

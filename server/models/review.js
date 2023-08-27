@@ -50,20 +50,6 @@ reviewSchema.post('save', async function() {
     const incrementValues = this.toJSON().ratingValues;
     const courseCode = this.toJSON().courseCode;
 
-    //creates course in database if not already present
-    if (await Course.findOne({ courseCode }) == null) {
-        try {
-            await Course.create({
-                courseCode,
-                ratingValues: [0, 0, 0, 0, 0]
-            })
-        } catch (err) {
-            console.log(err)
-            await Review.findOneAndDelete({ _id: this.toJSON()._id })
-            return;
-        }
-    }
-
     try {
         const course = await Course.findOne({ courseCode })
         let newRatingValues = course.ratingValues;

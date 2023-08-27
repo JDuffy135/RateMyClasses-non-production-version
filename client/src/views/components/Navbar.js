@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { checkIfSignedIn } from '../../helper_methods/signinCheck';
+import { checkIfSignedIn } from '../../helper_methods/signinCheck.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {

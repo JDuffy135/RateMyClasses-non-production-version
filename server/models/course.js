@@ -10,7 +10,13 @@ const courseSchema = new mongoose.Schema({
     },
     ratingValues: {
         type: Array,
-        default: [0, 0, 0, 0, 0]
+        default: [0, 0, 0, 0, 0],
+        required: true
+    },
+    beingUpdated: {
+        type: String,
+        required: true,
+        default: "NO"
     }
 })
 

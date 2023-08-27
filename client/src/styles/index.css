@@ -21,7 +21,8 @@
     position: fixed;
     top: 0px;
     width:  100%;
-    min-height: 100px;
+    min-height: 110px;
+    max-height: 140px;
     height: 14%;
     background-color: var(--gray1);
     border-bottom: 10px solid var(--gray2);
@@ -29,14 +30,14 @@
 }
 
 
-.navbar-notfixed {
+/* .navbar-notfixed {
     top: 0px;
     width:  100%;
     min-height: 120px;
     background-color: var(--gray1);
     border-bottom: 10px solid var(--gray2);
     z-index: 100;
-}
+} */
 
 
 .logo {
@@ -46,12 +47,16 @@
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
-    top: 5px;
+    top: 10px;
     left: -5px;
-    min-height: 100px;
-    height: 14%;
-    min-width: 400px;
-    width: 35%;
+
+    min-height: 110px;
+    max-height: 140px;
+    height: 15%;
+    min-width: 300px;
+    max-width: 500px;
+    width: 60%;
+
     z-index: 101;
     transition: 0.2s;
 }
@@ -90,10 +95,12 @@
     background-size: contain;
     top: 8px;
     right: 10px;
-    min-height: 30px;
-    height: 6%;
-    min-width: 30px;
-    width: 3%;
+    min-height: 50px;
+    max-height: 80px;
+    height: 5%;
+    min-width: 50px;
+    max-width: 80px;
+    width: 5%;
     z-index: 101;
     transition: 0.2s;
 }
@@ -162,7 +169,8 @@
     bottom: 0px;
     left: 0px;
     width:  100%;
-    min-height: 60px;
+    min-height: 40px;
+    max-height: 80px;
     height: 9%;
     background-color: var(--gray1);
     border-top: 10px solid var(--gray2);
@@ -199,9 +207,10 @@
 
 
 .authform-flexbox {
-    position: fixed;
-    top: 250px;
-    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -209,10 +218,8 @@
 
 
 .authform {
-    position: fixed;
-    top: 240px;
     width: 560px;
-    margin: 0 auto;
+    margin-top: 6%;
     text-align: center;
     z-index: 10;
 }

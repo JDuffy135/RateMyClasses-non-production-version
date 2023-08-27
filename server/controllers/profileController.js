@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user.js');
 const Review = require('../models/review.js');
+const Course = require('../models/course.js');
 
 
 //FUNCTIONS
@@ -53,7 +54,7 @@ const post_profile = async (req, res) => {
             if (deletion === true) {
                 return res.status(200).json({message: "review deleted"})
             } else {
-                return res.status(500).json({error: "server error, delete review failed"})
+                return res.status(500).json({error: "SERVER ERROR: delete review failed, refresh and try again"})
             }
     }
 
@@ -101,14 +102,47 @@ const get_profileReview = async (req, res) => {
 const delete_profileReview = async (reviewid, userid) => {
     /* deletes specified review from the database and from the user's "postedReviews" array
     (also fires the post deleteOne() hook in the Review model, which decrements the "ratingValues" array for the review's course) */
+
+    //checking to see if course is already being updated in database (to avoid issues with people deleting reviews simultaneously)
+    let course = null;
+    let courseCode = null;
+    let review = null
     try {
-        const review = await Review.findById(reviewid);
-        await review.deleteOne();
-        const user = await User.findById(userid);
-        let updatedPostedReviews = deleteReview(reviewid, user.postedReviews);
-        await User.findByIdAndUpdate(userid, { postedReviews: updatedPostedReviews });
-        return true;
+        review = await Review.findById(reviewid)
+        courseCode = review.courseCode;
+        course = await Course.findOne({ courseCode });
+        if (course.beingUpdated !== "NO" && course.beingUpdated !== userid)
+        {
+            false;
+        } else {
+            await Course.updateOne({ courseCode }, { beingUpdated: userid })
+        }
     } catch (err) {
+        console.log(err)
+        return false;
+    }
+
+
+    //deleting the review if course.beingUpdated value matches userid
+    try {
+        course = await Course.findOne({ courseCode });
+    } catch (err) {
+        return false;
+    }
+
+    if (course.beingUpdated == userid) {
+        try {
+            // review = await Review.findById(reviewid); /* already found the review in database */
+            await review.deleteOne();
+            const user = await User.findById(userid);
+            let updatedPostedReviews = deleteReview(reviewid, user.postedReviews);
+            await User.findByIdAndUpdate(userid, { postedReviews: updatedPostedReviews });
+            await Course.updateOne({ courseCode }, { beingUpdated: "NO" })
+            return true;
+        } catch (err) {
+            return false;
+        }
+    } else {
         return false;
     }
 }

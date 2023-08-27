@@ -1,4 +1,4 @@
-const checkIfSignedIn = async () => {
+export async function checkIfSignedIn() {
     let data = await fetch('http://localhost:3001', {
         method: "get",
         credentials: 'include'
@@ -8,4 +8,4 @@ const checkIfSignedIn = async () => {
     return signedIn;
 }
 
-module.exports = { checkIfSignedIn };
+// module.exports = { checkIfSignedIn };

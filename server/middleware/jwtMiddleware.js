@@ -6,7 +6,6 @@ const requireAuth = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
-                // res.redirect('/signin')
                 return res.status(401).json({error: "user couldn't be authorized"});
 
             } else {
@@ -14,7 +13,6 @@ const requireAuth = (req, res, next) => {
             }
         })
     } else {
-        // res.redirect('/signin')
         return res.status(401).json({error: "user couldn't be authorized"});
     }
 }
@@ -32,17 +30,14 @@ const requireSpecificAuth = async (req, res, next) => {
     if (user !== null) {
         jwt.verify(token, process.env.JWT_STRING, (err, decodedToken) => {
             if (err) {
-                // res.redirect('/signin')
                 return res.status(401).json({error: "user couldn't be authorized"});
             } else if (decodedToken.id !== userid) {
-                // res.redirect('/signin')
                 return res.status(401).json({error: "user couldn't be authorized"});
             } else {
                 next();
             }
         })
     } else {
-        // res.redirect('/signin')
         return res.status(401).json({error: "user couldn't be authorized"});
     }
 }
