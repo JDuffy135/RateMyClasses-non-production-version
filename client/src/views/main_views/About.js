@@ -66,7 +66,7 @@ export default function About() {
                                 Click here to send me an email!
                             </a>
                             <a 
-                                href="https://www.linkedin.com/in/jake-duffy-0682aa258"
+                                href="https://www.linkedin.com/in/JakeTDuffy"
                                 rel="noreferrer"
                                 target="_blank"
                                 className="about-link"
