@@ -102,7 +102,7 @@ export default function CourseReviews() {
                 })}
             </div>
 
-            <span className="reviews-back" onClick={() => navigate(-1)}>back to courses</span>
+            <span className="reviews-back" onClick={() => navigate('/courses')}>back to courses</span>
         </>
     );
 }

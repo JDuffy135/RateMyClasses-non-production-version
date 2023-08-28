@@ -9,6 +9,7 @@ export default function Signin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
 
     //USENAVIGATE HOOK + CHECK IF USER SIGNED IN
@@ -40,6 +41,7 @@ export default function Signin() {
                 navigate('/');
             } else {
                 setShowError(true);
+                setErrorMessage(response.error)
             }
         })
     }
@@ -70,7 +72,7 @@ export default function Signin() {
                             onChange={(e) => {setPassword(e.target.value)}}
                             required
                         />
-                        {showError ? <div className="authform-errormessage">ERROR: invalid credentials</div> : null}
+                        {showError ? <div className="authform-errormessage">ERROR: {errorMessage}</div> : null}
                         <button>Signin</button>
                     </form>
                     <div className="authform-bottomtext-flexbox">

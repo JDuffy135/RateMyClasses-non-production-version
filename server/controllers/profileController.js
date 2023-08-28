@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user.js');
 const Review = require('../models/review.js');
 const Course = require('../models/course.js');
+const Session = require('../models/session.js');
 
 
 //FUNCTIONS
@@ -40,16 +41,25 @@ const get_profile = async (req, res) => {
 
 const post_profile = async (req, res) => {
     /* switch case that handles logout, password change, and reviews redirect */
-    const { request } = req.body;
+    const { request, reviewid, userid } = req.body;
+
+    // console.log("PROFILECONTROLLER ->> " + "request: " + request + " reviewid: " + reviewid + " userid: " + userid, " req.body: " + req.body);
+
     switch(request) {
         case "logout":
             // res.cookie('token', { maxAge: 1 });
+            try {
+                const user = await User.findById(userid)
+                const email = user.email;
+                await Session.findOneAndDelete({ email: email })
+            } catch (err) {
+                return res.status(500).json({error: "SERVER ERROR: couldn't log out"})
+            }
             res.clearCookie('token');
             return res.status(302).json({message: "user logged out - redirecting to signin page"})
-        case "change-password":
-            return res.status(302).json({message: "redirecting to change password page"})
+        // case "change-password":
+        //     return res.status(302).json({message: "redirecting to change password page"})
         case "review-delete":
-            const { reviewid, userid } = req.body;
             const deletion = await delete_profileReview(reviewid, userid);
             if (deletion === true) {
                 return res.status(200).json({message: "review deleted"})

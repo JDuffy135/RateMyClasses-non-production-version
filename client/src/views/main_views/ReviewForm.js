@@ -50,11 +50,11 @@ export default function ReviewForm() {
             .then(response => response.json())
             .then(response => {
                 if (!response.message) {
-                    navigate('/')
+                    navigate('/signin')
                 }
             })
             .catch(error => {
-                navigate('/')
+                navigate('/signin')
             })
         }
         checkIfLoggedIn();

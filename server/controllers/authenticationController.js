@@ -4,6 +4,7 @@ const passGenerator = require('../passGenerator.js');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.js');
 const Temp_User = require('../models/temp_user.js');
+const Session = require('../models/session.js');
 
 
 //--------- SIGN IN FUNCTIONS ---------//
@@ -24,14 +25,23 @@ const get_signin = async (req, res) => {
 
 const post_signin = async (req, res) => {
     const { email, password } = req.body;
+
+    const session = await Session.findOne({ email })
+    if (session != null) {
+        return res.status(422).json({error: "can't be logged into multiple devices or browsers at once"})
+    }
+
     const user = await User.login(email, password);
     if (user != null)
     {
         const token = createToken(user._id);
+        Session.create({
+            email: email
+        })
         res.cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 3 });
         res.status(302).json({message: "login successful - redirecting"})
     } else {
-        res.status(400).json({error: "login failed"})
+        res.status(401).json({error: "invalid credentials"})
     }
 }
 

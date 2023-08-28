@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-/* the auto-generated _id value of the temp_user will be used for user/password change confirmation */
-
 const temp_userSchema = new mongoose.Schema({
     email: {
         type: String,

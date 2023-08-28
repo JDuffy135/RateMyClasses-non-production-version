@@ -15,11 +15,11 @@ export default function ProfileLoading() {
         if (response.message) {
             navigate(`/profile/${response.userid}`)
         } else {
-            navigate('/')
+            navigate('/signin')
         }
     })
     .catch(error => {
-        navigate('/')
+        navigate('/signin')
     })
 
     return (

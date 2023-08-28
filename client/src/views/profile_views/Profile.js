@@ -44,7 +44,7 @@ export default function Profile() {
                 method: 'post',
                 credentials: 'include',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({request: "logout"})
+                body: JSON.stringify({request: "logout", reviewid: null, userid})
             })
             .then((result) => navigate('/'))
     }
