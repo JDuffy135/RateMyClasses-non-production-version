@@ -59,10 +59,14 @@ export default function PostedReview({ reviewid, setLoading }) {
             {(reviewObject !== null) ?
             <>
                 <span className="profile-postedReview-bodycontainer">
-                    <h4 className="profile-postedReview-title" onClick={handleClickReview}>{reviewObject.title}</h4>
-                    <p>{reviewObject.courseCode}</p>
+                    <span className="profile-postedReview-titleAndIconFlexbox">
+                        <h4 className="profile-postedReview-title" onClick={handleClickReview}>
+                            {reviewObject.title}
+                        </h4>
+                        <DeleteReviewButton deletereview={handleDeleteReview}/>
+                    </span>
+                    <p>{reviewObject.courseCode.substring(0,2)}:{reviewObject.courseCode.substring(2,5)}:{reviewObject.courseCode.substring(5)}</p>
                 </span>
-                <DeleteReviewButton deletereview={handleDeleteReview}/>
             </>
             : null}
         </div>

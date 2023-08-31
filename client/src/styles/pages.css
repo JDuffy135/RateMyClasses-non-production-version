@@ -13,15 +13,25 @@
 }
 
 
+.home-mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-width: 1100px;
+    height: 100vh;
+    min-height: 650px;
+}
+
+
 .home-buttonSectionContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    position: absolute;
-    top: 38%;
-    height: 25%;
     width: 100%;
+    min-width: 1100px;
 }
 
 
@@ -30,12 +40,12 @@
     flex-direction: column;
     background-color: rgba(255, 245, 245, 0.60);
     padding: 20px;
-    margin-left: 80px;
-    margin-right: 80px;
+    /* margin-left: 80px;
+    margin-right: 80px; */
 
     height: 200px;
-    min-width: 300px;
-    width: 40%;
+    min-width: 420px;
+    width: 33%;
 
     border-radius: 15px;
     border: 2px solid var(--gray1);
@@ -108,25 +118,33 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    left: 50px;
-    top: 20px;
+    left: -40px;
     align-items: center;
     justify-content: center;
-    min-height: 200px;
+    min-height: 400px;
     height: 100%;
-    min-height: 350px;
 }
 
 
 .profile-sidebar {
-    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-top: 100px;
+    height: 40%;
+    min-height: 180px;
+    max-height: 420px;
+    width: 140px;
+
     background-color: white;
     border: 3px solid var(--gray2);
     border-radius: 15px;
-    height: 45%;
-    width: 140px;
+}
 
-    padding: 15px;
+
+.profile-sidebar-iconAndTextFlexbox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -149,19 +167,13 @@
 }
 
 
-.profile-sidebar-gap {
-    height: 85%;
-    width: 100%;
-}
-
-
 .profile-sidebar-wordcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-left: 30px;
-    height: 100%;
+    margin-bottom: 10px;
     width: 75%;
 }
 
@@ -180,17 +192,25 @@
 }
 
 
-.profile-postedReview-container {
-    position: fixed;
+.profile-postedReview-flexbox {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 830px;
+    height: 100%;
+    min-height: 830px;
+}
+
+.profile-postedReview-container {
+    display: flex;
+    flex-direction: column;
+    margin: 165px 0px 0px 120px;
     padding: 10px;
-    top: 20%;
-    left: 260px;
-    height: 63%;
-    min-height: 260px;
-    min-width: 350px;
-    width: 65%;
+    height: 600px;
+    min-width: 400px;
+    width: 60%;
     background-color: white;
     border: 3px solid var(--gray2);
 }
@@ -228,7 +248,7 @@
     flex-direction: column;
     padding: 5px;
     margin-top: 10px;
-    height: 11%;
+    height: 36px;
     background-color: rgb(255, 225, 225);
     border: 2px solid rgb(255, 235, 235);
     border-radius: 10px;
@@ -243,46 +263,69 @@
 .profile-postedReview-bodycontainer {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     height: 100%;
 }
 
 
+.profile-postedReview-bodycontainer p {
+    font-size: 12px;
+}
+
+.profile-postedReview-titleAndIconFlexbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.profile-postedReview-title {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
 .profile-deleteicon {
-    position: absolute;
+    /* position: absolute; */
     right: 20px;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     transition: 0.15;
     cursor: pointer;
-    z-index: 105;
+    z-index: 5;
 }
 
 .profile-deleteicon:hover {
     opacity: 0.8;
 }
 
-.profile-postedReview-title {
-    cursor: pointer;
-}
-
 
 .profile-alert-background {
     z-index: 1000;
-    position: fixed;
-    top: 20%;
-    left: 0%;
+    margin: 120px 0px 0px 40px;
     background-color: rgb(255, 245, 245);
     border: 5px solid red;
     width: 200px;
-    height: 520px;
+    height: 75%;
+    min-height: 300px;
+    max-height: 520px;
 }
 
 .profile-alert-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
+
+
+.profile-alert-warningtext-flexbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .profile-alert-warningtext {
     text-align: center;
@@ -294,8 +337,10 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-top: 55px;
-    height: 300px;
+    margin-bottom: 30px;
+    height: 60%;
+    min-height: 60px;
+    max-height: 350px;
     width: 100%;
 }
 
@@ -574,7 +619,7 @@
     bottom: -10px;
     width: 40%;
     min-width: 200px;
-    max-width: 400px;
+    max-width: 300px;
     min-height: 350px;
     height: 100%;
     background-color: white;
@@ -587,7 +632,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 14%;
+    margin-top: 120px;
     max-width: 100%;
     width: 100%;
     height: 90%;
@@ -595,9 +640,9 @@
 
 .lookup-form input, .lookup-form select {
     width: 75%;
-    height: 50px;
+    height: 45px;
     margin: 10px 0px 30px 0px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     background-color: rgb(240, 240, 240);
     border: 2px solid var(--gray2);
@@ -608,7 +653,8 @@
 }
 
 .lookup-form button {
-    font-size: 20px;
+    font-size: 18px;
+    min-width: 100px;
     width: 40%;
     height: 50px;
     margin: 10px 0px 0px 0px;
@@ -630,8 +676,8 @@
     align-items: center;
     margin-left: 410px;
     margin-top: 150px;
-    min-width: 700px;
-    width: 100% - 410px;
+    min-width: 500px;
+    width: 100% - 310px;
     min-height: 100%;
 }
 
@@ -649,9 +695,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 85%;
     min-width: 350px;
-    max-width: 700px;
+    max-width: 750px;
     height: 100px;
     margin: 20px 0px 20px 0px;
     padding: 5px;
@@ -730,11 +776,17 @@
 
 .reviews-sidebar {
     position: fixed;
+    
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+
     left: -10px;
     bottom: -10px;
     min-width: 200px;
-    max-width: 550px;
-    width: 45%;
+    max-width: 300px;
+    width: 35%;
     min-height: 200px;
     height: 100%;
     background-color: white;
@@ -747,8 +799,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 170px 0px 0px 0px;
-    height: 90%;
+    margin: 175px 0px 0px 0px;
+    height: 85%;
+    min-height: 400px;
+    max-height: 900px;
     width: 100%;
 }
 
@@ -777,7 +831,7 @@
     height: 50%;
     min-height: 200px;
     max-height: 600px;
-    margin: 20px;
+    margin: 20px 20px 10px 20px;
     background-color: rgb(235, 235, 235);
     border-radius: 10px;
     border: 5px solid rgb(245, 245, 245)
@@ -794,12 +848,12 @@
 }
 
 .reviews-progressbarContainer h1 {
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
 }
 
 .reviews-progressbarContainer p {
-    font-size: 14px;
+    font-size: 13px;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
     color: var(--gray1);
     font-weight: bold;
@@ -811,10 +865,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 560px;
+    margin-left: 310px;
     margin-top: 150px;
-    min-width: 1000px;
-    width: 100% - 560px;
+    min-width: 800px;
+    width: 100% - 310px;
     min-height: 100%;
 }
 
@@ -831,9 +885,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 600px;
+    min-width: 500px;
+    max-width: 800px;
     width: 70%;
-    height: 540px;
+    height: 620px;
     margin: 20px 0px 20px 0px;
     padding: 10px;
     background-color: rgb(255, 255, 255);
@@ -925,7 +980,7 @@
     align-items: center;
     width: 100%;
     height: 10px;
-    margin: 25px 0px 15px 0px;
+    margin: 25px 0px 10px 0px;
 }
 
 
@@ -935,7 +990,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 180px;
+    height: 240px;
 }
 
 
@@ -946,7 +1001,8 @@
     font-size: 14px;
     /* font-weight: bold; */
     width: 95%;
-    height: 100%;
+    /* height: 100%; */
+    height: 220px;
     padding: 10px;
     margin: 10px 20px 0px 20px;
     background-color: rgb(245, 245, 245);
@@ -957,7 +1013,8 @@
 
 .reviews-reviewText {
     width: 97%;
-    word-break: break-all;
+    /* word-break: break-all; */
+    word-break: normal;
 }
 
 
@@ -1060,13 +1117,14 @@
 
 .reviews-back {
     position: fixed;
-    bottom: 10px;
-    left: 15px;
-    font-size: 16px;
+    bottom: 6px;
+    left: 6px;
+    font-size: 15px;
     font-style: italic;
     color: rgb(170, 170, 170);
     cursor: pointer;
     transition: 0.15s;
+    z-index: 10;
 }
 
 .reviews-back:hover {
@@ -1113,7 +1171,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 1000px;
+    min-width: 1100px;
     min-height: 100%;
 }
 
@@ -1124,7 +1182,7 @@
 }
 
 .about-mainContainer p {
-    font-size: 17px;
+    font-size: 16px;
     letter-spacing: 1px;
     word-spacing: 2px;
     width: 96%;
@@ -1152,8 +1210,7 @@
     align-items: center;
     margin: 180px 0px 0px 0px;
     height: 800px;
-    min-width: 900px;
-    width: 75%;
+    width: 920px;
     background-color: white;
     border: 5px solid rgb(255, 230, 230);
     border-radius: 15px;
@@ -1180,8 +1237,7 @@
     align-items: center;
     margin: 60px 0px 0px 0px;
     height: 370px;
-    min-width: 900px;
-    width: 75%;
+    width: 920px;
     background-color: white;
     border: 5px solid rgb(255, 230, 230);
     border-radius: 15px;
@@ -1208,8 +1264,7 @@
     align-items: center;
     margin: 60px 0px 0px 0px;
     height: 350px;
-    min-width: 900px;
-    width: 75%;
+    width: 920px;
     background-color: white;
     border: 5px solid rgb(255, 230, 230);
     border-radius: 15px;
@@ -1236,8 +1291,7 @@
     align-items: center;
     margin: 60px 0px 60px 0px;
     height: 350px;
-    min-width: 900px;
-    width: 75%;
+    width: 920px;
     background-color: white;
     border: 5px solid rgb(255, 230, 230);
     border-radius: 15px;
@@ -1267,6 +1321,6 @@
 }
 
 .about-link:hover {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(150, 150, 150);
 }

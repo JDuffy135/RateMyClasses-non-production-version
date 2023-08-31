@@ -14,7 +14,8 @@ export default function Home() {
 
             <Navbar/>
 
-            <div className="home-buttonSectionContainer">
+            <span className="home-mainContainer">
+                <div className="home-buttonSectionContainer">
                 <div className="home-buttonSection">
                     <button className="home-button" onClick={() => navigate('/courses')}>SEARCH COURSES</button>
                     <p className="home-paragraph">
@@ -28,6 +29,8 @@ export default function Home() {
                     </p>
                 </div>
             </div>
+
+            </span>
             
             <div className="footer">
                 <div className="about-text" onClick={() => navigate('/about')}>about page</div>

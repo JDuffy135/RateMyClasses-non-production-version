@@ -10,7 +10,7 @@ const sessionSchema = new mongoose.Schema({
     expireAt: {
         type: Date,
         default: Date.now,
-        expires: 60 * 60 * 24 * 3
+        expires: 60 * 60 * 24 * 1
     }
 })
 

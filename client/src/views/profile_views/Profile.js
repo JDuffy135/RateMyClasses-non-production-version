@@ -89,39 +89,41 @@ export default function Profile() {
 
             <NavbarNoProfile/>
 
-            <div className="profile-sidebar-container">
-                <div className="profile-sidebar">
-                    <img src={profilelogo}></img>
-                    <div className="profile-sidebar-profiletext">PROFILE PAGE</div>
-                    <div className="profile-sidebar-gap"></div>
-                    <div className="profile-sidebar-wordcontainer">
-                        <span className="profile-sidebar-text" onClick={handleLogout}>Logout</span>
-                        <span className="profile-sidebar-text" onClick={handleDeleteProfileAlert}>Delete Profile</span>
-                    </div>
-                </div>
-            </div>
-
             {(showAlert !== false) ? 
             <DeleteProfileAlert
                 cancel={handleDeleteProfileCancel}
                 confirm={handleDeleteProfileConfirm}
                 confirmAndDelete={handleDeleteProfileConfirmAndDelete}
             /> 
-            : null}
 
-            <div className="profile-postedReview-container">
-                <div className="profile-postedReview-textbox">
-                    <h1>{postedReviews.length}/8 reviews posted</h1>
-                </div>
-                <div className="profile-postedReview-reviewContainer">
-                        {(postedReviews.length >= 1) ? postedReviews.map((review, index) => {
-                            return (<PostedReview key={index} reviewid={review} setLoading={setLoading}/>);
-                        }) : null}
+            : 
+            
+            <div className="profile-sidebar-container">
+                <div className="profile-sidebar">
+                    <span className="profile-sidebar-iconAndTextFlexbox">
+                        <img src={profilelogo}></img>
+                        <div className="profile-sidebar-profiletext">PROFILE PAGE</div>
+                    </span>
+                    <span className="profile-sidebar-wordcontainer">
+                        <span className="profile-sidebar-text" onClick={handleLogout}>Logout</span>
+                        <span className="profile-sidebar-text" onClick={handleDeleteProfileAlert}>Delete Profile</span>
+                    </span>
                 </div>
             </div>
 
-            <div className="footer">
-                <div className="about-text" onClick={() => navigate('/about')}>about page</div>
+            }
+
+            <div className="profile-postedReview-flexbox">
+                <div className="profile-postedReview-container">
+                    <div className="profile-postedReview-textbox">
+                        <h1>{postedReviews.length}/8 reviews posted</h1>
+                    </div>
+                    <div className="profile-postedReview-reviewContainer">
+                            {(postedReviews.length >= 1) ? postedReviews.map((review, index) => {
+                                return (<PostedReview key={index} reviewid={review} setLoading={setLoading}/>);
+                            }) : null}
+                    </div>
+                </div>
             </div>
         </>
     );

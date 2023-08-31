@@ -1,5 +1,6 @@
 * {
     margin: 0px;
+    color: black;
 }
 
 :root {
@@ -30,16 +31,6 @@
 }
 
 
-/* .navbar-notfixed {
-    top: 0px;
-    width:  100%;
-    min-height: 120px;
-    background-color: var(--gray1);
-    border-bottom: 10px solid var(--gray2);
-    z-index: 100;
-} */
-
-
 .logo {
     position: fixed;
     cursor: pointer;
@@ -47,7 +38,7 @@
     background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
-    top: 10px;
+    top: 5px;
     left: -5px;
 
     min-height: 110px;
@@ -66,7 +57,17 @@
 }
 
 
-.logo-notfixed {
+/* .navbar-notfixed {
+    top: 0px;
+    width:  100%;
+    min-height: 120px;
+    background-color: var(--gray1);
+    border-bottom: 10px solid var(--gray2);
+    z-index: 100;
+} */
+
+
+/* .logo-notfixed {
     position: absolute;
     background-image: url('../images/RateMyClasseslogo.png');
     background-position: left;
@@ -83,7 +84,7 @@
 
 .logo-notfixed:hover {
     left: -5px;
-}
+} */
 
 
 .profile-logo {

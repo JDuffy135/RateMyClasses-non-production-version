@@ -21,7 +21,12 @@ export default function CourseStatusBar ({ stat, progressValue }) {
         height: '100%',
         width: `${progressValue}%`,
         backgroundColor: 'var(--red1)',
-        borderRadius: '10px'
+        borderRadius: '10px',
+
+        transitionProperty: `width`,
+        transitionDelay: '0s',
+        transitionDuration: '0.75s',
+        transitionTimingFunction: 'cubic-bezier(0.25, 0.5, 0.5, 1)'
     }
 
 

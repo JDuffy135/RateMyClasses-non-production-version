@@ -18,7 +18,7 @@ export default function About() {
 
                             <br /> <br />Before this project, I knew absolutely nothing about web development. HTML, CSS, and JavaScript were all foreign to me, and I had zero clue how to use any sort of framework or database. I did have some programming experience, as I had taken a few CS courses at Rutgers (CS111, CS112, and CS205 at the time), but that was about it. Suffice to say, I had much to learn.
 
-                            <br /> <br />In the beginning, I was quite overwhelmed, but I knew I had to start somewhere. I quickly compiled a list of languages and technologies I would need to learn, and set out with the task of learning just enough of each to be able to build something operational. I took notes on everything, but more importantly, I coded very small side-projects along the way for practice. “Learn by doing,” while cliche, is an important mantra to maintain.
+                            <br /> <br />In the beginning, the project was quite overwhelming, but I knew I had to start somewhere. I began by compiling a list of languages and technologies I would need to learn, and set out with the task of learning just enough of each to be able to build something operational. I took notes on everything, but more importantly, I coded very small side-projects along the way for practice. “Learn by doing,” while cliche, is an important mantra to maintain.
 
                             <br /> <br />After a few weeks of note-taking and mini projects, I was able to jump into designing and coding RateMyClasses from scratch. I worked on the backend first, testing the REST API endpoints with Postman as I went, and eventually moved onto the frontend, refactoring code as necessary. I was still learning a lot as I went, so it took a few weeks, but ultimately, I was able to finish, test, and deploy the website less than 2 months after taking my first notes on HTML.
 
@@ -33,9 +33,9 @@ export default function About() {
                     </div>
                     <div className="about-techstackTextContainer">
                         <p>
-                            To build this website, I used the MERN stack - MongoDB for the database, React for the frontend, and Node.js with Express for the backend. I deployed the app using AWS, and I’m currently using the MongoDB Atlas free tier to store all the reviews and user info (which is why I decided to limit each user to 8 reviews).
+                            To build this website, I used the MERN stack - MongoDB for the database, React for the frontend, and Node.js with Express for the backend. I deployed the app using an AWS EC2 instance, and I’m currently using the MongoDB Atlas free tier to store all the reviews and user info (which is why I decided to limit each user to 8 reviews).
 
-                            <br /> <br />Oh, and for anyone curious about learning web development, the 2 most useful resources for me were w3schools (for learning HTML, CSS, JavaScript, and the basics of React), and the YouTube channel called “TheNetNinja” (I found his Node.js crash course, JWT tutorial, and MERN stack video series to be particularly helpful).
+                            <br /> <br />Oh, and for anyone curious about learning web development, the 2 resources I used the most were w3schools (for learning HTML, CSS, JavaScript, and the basics of React), and a channel called “TheNetNinja” on YouTube (I found his Node.js crash course, JWT tutorial, and MERN stack video series to be particularly helpful).
                         </p>
                     </div>
                 </div>
