@@ -143,11 +143,11 @@ export default function ReviewForm() {
                         <textarea
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
-                            placeholder="max characters: 800, minimum characters: 100"
-                            maxLength="800"
+                            placeholder="max characters: 1000, minimum characters: 100"
+                            maxLength="1000"
                             required
                         />
-                        <p>characters: {review.length}/800</p>
+                        <p>characters: {review.length}/1000</p>
                     </div>
 
 
