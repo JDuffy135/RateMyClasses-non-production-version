@@ -86,9 +86,11 @@ const delete_profile = async (req, res) => {
         if (deleteRequest == "YES") {
             await deleteAllReviews(user.postedReviews);
         }
+        const email = user.email;
         await user.deleteOne();
         // res.cookie('token', { maxAge: 1 });
         res.clearCookie('token');
+        await Session.findOneAndDelete({ email: email })
         return res.status(302).json({message: "profile successfully deleted - redirecting to home page"})
     } catch (err) {
         return res.status(500).json({error: "server error, profile failed to delete"})
