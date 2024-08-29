@@ -77,7 +77,7 @@ const delete_profile = async (req, res) => {
     const userid = req.params.userid;
     let user = null;
     try {
-        user = await  User.findById(userid);
+        user = await User.findById(userid);
     } catch (err) {
         return res.status(500).json({error: "server error, profile failed to delete"})
     }

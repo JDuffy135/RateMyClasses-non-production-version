@@ -35,7 +35,8 @@ const reviewSchema = new mongoose.Schema({
     },
     date: {
         type: String,
-        default: Date(Date.now()).toString()
+        // default: Date(Date.now()).toString()
+        default: Date(Date.now())
     },
     ratingValues: {
         type: Array,
