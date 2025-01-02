@@ -29,7 +29,7 @@ const reviewSchema = new mongoose.Schema({
     review: {
         type: String,
         minLength: 100,
-        maxLength: 1000,
+        maxLength: 1200,
         required: true,
         unique: true
     },

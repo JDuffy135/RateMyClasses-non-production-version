@@ -9,10 +9,10 @@ const sessionSchema = new mongoose.Schema({
     },
     expireAt: {
         type: Date,
-        default: Date.now,
-        expires: 60 * 60 * 24 * 1
+        default: () => new Date(Date.now() + 60 * 60 * 24 * 1000), // 24 hours from now
+        expires: 0 // TTL index automatically removes documents after the `expireAt` time
     }
-})
+});
 
 const Session = mongoose.model('Session', sessionSchema);
 

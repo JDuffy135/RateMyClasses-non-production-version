@@ -5,7 +5,7 @@ import DisplayedCourse from '../components/DisplayedCourse.js';
 export default function CourseLookup() {
 
     //STATES
-    const [searchBy, setSearchBy] = useState('course code'); /* either "course code" or "department code" - changed with a dropdown */
+    const [searchBy, setSearchBy] = useState('course code'); /* either "course code", "department code", or "school code" - changed with a dropdown */
     const [enteredCode, setEnteredCode] = useState('');
     const [courses, setCourses] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
@@ -43,8 +43,10 @@ export default function CourseLookup() {
         if (searchBy == 'course code')
         {
             displayedCourses = courses.filter(course => course.courseCode.includes(enteredCode))
-        } else {
+        } else if (searchBy == 'department code') {
             displayedCourses = courses.filter(course => (course.courseCode.substring(2, 5)).includes(enteredCode))
+        } else {
+            displayedCourses = courses.filter(course => (course.courseCode.substring(0, 2)).includes(enteredCode))
         }
 
         setSearchResults(displayedCourses)
@@ -70,7 +72,7 @@ export default function CourseLookup() {
                         type="text"
                         value={enteredCode}
                         onChange={(e) => setEnteredCode(e.target.value)} 
-                        placeholder={(searchBy == 'course code') ? "type 8 digit course code (no colons)" : "type 3 digit department code"}
+                        placeholder={(searchBy == 'course code') ? "type 8 digit course code (no colons)" : (searchBy == 'department code') ? "type 3 digit department code" : "type 2 digit school code"}
                         maxLength="8"
                         required
                     />
@@ -79,6 +81,7 @@ export default function CourseLookup() {
                     <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}>
                         <option value='course code'>course code</option>
                         <option value='department code'>department code</option>
+                        <option value='school code'>school code</option>
                     </select>
 
                     <button type="submit">Search</button>
