@@ -14,11 +14,11 @@ export default function DeleteProfileAlert({ cancel, confirm, confirmAndDelete }
                             onClick={confirmAndDelete}>
                                 CONFIRM AND DELETE REVIEWS
                         </button>
-                        <button
+                        {/* <button
                             className="profile-alert-confirmbutton"
                             onClick={confirm}>
                                 CONFIRM
-                        </button>
+                        </button> */}
                         <button
                             className="profile-alert-cancelbutton"
                             onClick={cancel}>

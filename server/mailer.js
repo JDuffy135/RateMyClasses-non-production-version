@@ -6,7 +6,7 @@ const mailTransporter = nodeMailer.createTransport({
     service: "gmail",
     auth: {
         user: "ratemyclasses060@gmail.com",
-        pass: "jdvlszkkfmqjlecg"
+        pass: process.env.MAILER_PASS
     }
 })
 
@@ -25,6 +25,9 @@ function sendSignUpConfirmationEmail(email, temp_userid) {
         </h1>
         <h4>
         Confirm your account with the following id: ${temp_userid}
+        </h4>
+        <h4>
+        After confirming, you will be sent another email with your password, which you can use to login to your new account!
         </h4>
         <p>Note: id only valid for 10 minutes. Link for account confirmation: http://localhost:3001/signup/confirmation</p>
         `
