@@ -128,7 +128,7 @@ const post_reviewForm = async (req, res) => {
     let course = null;
     try {
         course = await Course.findOne({ courseCode });
-        if (course.beingUpdated !== "NO" && course.beingUpdated !== userid)
+        if (course.beingUpdated !== "NO" && course.beingUpdated !== userid && course.ratingValues[4] != 0)
         {
             return res.status(500).json({error: "SERVER ERROR: course already being updated - wait a moment and try again"})
         } else {

@@ -125,7 +125,7 @@ const delete_profileReview = async (reviewid, userid) => {
         course = await Course.findOne({ courseCode });
         if (course.beingUpdated !== "NO" && course.beingUpdated !== userid)
         {
-            false;
+            return false;
         } else {
             await Course.updateOne({ courseCode }, { beingUpdated: userid })
         }
